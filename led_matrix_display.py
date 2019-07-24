@@ -1,5 +1,5 @@
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
-import led_matrix_physics as physics
+from led_matrix_physics import Physics, PhysicalPixel
 import numpy as np
 import time
 
@@ -45,19 +45,51 @@ class Circle():
     def build(self, x, y, r):
         return x
 
-
-bar_list = []
-w = 5
-for i in range(64):
-    
-    if i % w == 0:
-        bar_list.append(Bar(w,i))            
+def bar_test():
+    bar_list = []
+    w = 5
+    for i in range(64):
         
-while True:
-    i = 0
-    time.sleep(0.1)
-    Dmatrix.Clear()
-    for bar in bar_list:
-        i += bar.x
-        bar.build(int(np.random.sample() * 32))
+        if i % w == 0:
+            bar_list.append(Bar(w,i))            
+            
+    while True:
+        i = 0
+        time.sleep(0.1)
+        Dmatrix.Clear()
+        for bar in bar_list:
+            i += bar.x
+            bar.build(int(np.random.sample() * 32))
+            
+def physics_test(frame_rate=10):
+    env = Physics()
+    p = PhysicalPixel(Physics.Vector2(32,16), env, matrix=Dmatrix)
+    env.add(p)
+    p.add_force(Physics.Vector2(0.3,0.2))
     
+    init_time = time.time()
+    i=0
+    while True:
+        i+=1
+        delta_time = time.time() - init_time
+
+        env.update_environment()
+        Dmatrix.Clear()
+        
+        if i % 60 == 0:
+            print(i/60, "frames have passed and this took", delta_time, "seconds")
+            init_time = time.time()
+
+        
+        time.sleep(1/frame_rate)
+
+        
+
+physics_test()
+Dmatrix.Clear()
+        
+    
+    
+    
+    
+

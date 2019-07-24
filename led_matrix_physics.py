@@ -1,13 +1,18 @@
 import numpy as np
 import time
-from rgbmatrix import RGBMatrix, RGBMatrixOptions
+
+try:
+    from rgbmatrix import RGBMatrix, RGBMatrixOptions
+except ImportError:
+    print("The package rgbmatrix was not found")
 
 
 class Physics:
-    def __init__(self, air_resistance=0.00001, g=0):
+    def __init__(self, air_resistance=0.991, g=0, fps=60):
         self.gravity = g
         self.air_resistance = air_resistance
         self.object_list = []
+        self.fps = fps
 
     def add(self, obj):
         self.object_list.append(obj)
@@ -15,6 +20,8 @@ class Physics:
     def update_environment(self):
         for obj in self.object_list:
             obj.update()
+        frame_sleep = 1 / self.fps
+        time.sleep(frame_sleep)
 
     def create_force_emitter(self, force, radius):
         return self.ForceEmitter(force, radius, self.object_list)
@@ -61,6 +68,10 @@ class Physics:
             unit_vector = Physics.Vector2.scale(self, magnitude)
             return unit_vector
 
+        def get_position(self):
+            pos = (int(self.x), int(self.y))
+            return pos
+
         @staticmethod
         def relative_direction(origin_vector, other_vector):
             origin_vector.negate(other_vector)
@@ -98,9 +109,11 @@ class Physics:
 
 
 class PhysicalPixel:
-    def __init__(self, position, environment, matrix, c=(0, 100, 0), velocity=Physics.Vector2(0, 0), led_size=(32,64)):
+    def __init__(self, position, mass, environment, matrix, c=(0, 100, 0), velocity=Physics.Vector2(0, 0), led_size=(32,64)):
         self.position = position
         self.velocity = velocity
+        self.mass = mass * 1000
+
         self.colour = c
         self.environment = environment
         self.m = matrix
@@ -108,8 +121,8 @@ class PhysicalPixel:
 
         self.update()
 
-    def add_force(self, vel_vector):
-        self.velocity.add(vel_vector)
+    def add_force(self, f):
+        self.velocity.add(Physics.Vector2.scale(f, (1/self.mass)))
 
     def update_position(self):
         new_pos_x = self.position.x + self.velocity.x
@@ -119,15 +132,13 @@ class PhysicalPixel:
         self.position.y = new_pos_y
 
     def update(self):
-        self.m.SetPixel(self.position.x, self.position.y,
-                        self.colour[0], self.colour[1],
-                        self.colour[2])
-        
-        print("Position", int(self.position.x), int(self.position.y))
-        print("Velocity", (self.velocity.x), (self.velocity.y), "\n")
+
+        if self.m is not None:
+            self.m.SetPixel(self.position.x, self.position.y,
+                            self.colour[0], self.colour[1],
+                            self.colour[2])
 
         self.update_position()
-        c = self.colour
         self.dampen()
         self.check_bounds()
     
@@ -142,8 +153,8 @@ class PhysicalPixel:
 
     def dampen(self):
         f = self.environment.air_resistance
-        self.velocity.x = self.velocity.x - f
-        self.velocity.y = self.velocity.y - f
+        self.velocity.x = self.velocity.x * f
+        self.velocity.y = self.velocity.y * f
 
         if self.velocity.magnitude() < 0.001:
             self.velocity.make_zero()

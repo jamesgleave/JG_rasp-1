@@ -136,7 +136,7 @@ class PhysicalPixel:
 
 
 env = Physics()
-p = PhysicalPixel(Physics.Vector2(0, 0), env)
+p = PhysicalPixel(Physics.Vector2(0, 0), env, mat7)
 
 env.add(p)
 env.update_environment()

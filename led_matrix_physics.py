@@ -1,9 +1,10 @@
 import numpy as np
 import time
+from rgbmatrix import RGBMatrix, RGBMatrixOptions
 
 
 class Physics:
-    def __init__(self, air_resistance=1.2, g=0):
+    def __init__(self, air_resistance=0.00001, g=0):
         self.gravity = g
         self.air_resistance = air_resistance
         self.object_list = []
@@ -14,7 +15,6 @@ class Physics:
     def update_environment(self):
         for obj in self.object_list:
             obj.update()
-            time.sleep(.5)
 
     def create_force_emitter(self, force, radius):
         return self.ForceEmitter(force, radius, self.object_list)
@@ -75,7 +75,7 @@ class Physics:
             return Physics.Vector2(vect.x * val, vect.y * val)
 
         @staticmethod
-        def print(vector):
+        def print_vector(vector):
             print("<" + str(vector.x) + ",", str(vector.y) + ">")
 
     class ForceEmitter:
@@ -98,12 +98,13 @@ class Physics:
 
 
 class PhysicalPixel:
-    def __init__(self, position, environment, matrix=None, c=(100, 0, 0), velocity=Physics.Vector2(0, 0)):
+    def __init__(self, position, environment, matrix, c=(0, 100, 0), velocity=Physics.Vector2(0, 0), led_size=(32,64)):
         self.position = position
         self.velocity = velocity
         self.colour = c
         self.environment = environment
         self.m = matrix
+        self.led_size = led_size
 
         self.update()
 
@@ -118,34 +119,36 @@ class PhysicalPixel:
         self.position.y = new_pos_y
 
     def update(self):
-
+        self.m.SetPixel(self.position.x, self.position.y,
+                        self.colour[0], self.colour[1],
+                        self.colour[2])
+        
         print("Position", int(self.position.x), int(self.position.y))
         print("Velocity", (self.velocity.x), (self.velocity.y), "\n")
 
         self.update_position()
         c = self.colour
         self.dampen()
+        self.check_bounds()
+    
+    def check_bounds(self):
+        if self.position.x > self.led_size[0] or self.position.x < 0:
+            self.delete()
+        if self.position.y > self.led_size[1] or self.position.y < 0:
+            self.delete()
+            
+    def delete(self):
+        del self
 
     def dampen(self):
         f = self.environment.air_resistance
-        self.velocity.x = self.velocity.x/f
-        self.velocity.y = self.velocity.y/f
+        self.velocity.x = self.velocity.x - f
+        self.velocity.y = self.velocity.y - f
 
-        if self.velocity.magnitude() < 0.1:
+        if self.velocity.magnitude() < 0.001:
             self.velocity.make_zero()
 
 
-env = Physics()
-p = PhysicalPixel(Physics.Vector2(0, 0), env, mat7)
-
-env.add(p)
-env.update_environment()
-
-force = env.create_force_emitter(force=2, radius=4)
-force.detonate(env.Vector2(-3, -2))
-
-for _ in range(10):
-    env.update_environment()
 
 
 

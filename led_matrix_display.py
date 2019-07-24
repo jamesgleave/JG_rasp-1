@@ -67,8 +67,7 @@ def bar_test():
             i += bar.x
             bar.build(int(np.random.sample() * 32))
 
-
-class Matrix_simulator:
+class MatrixSimulator:
     def __init__(self, obj_list, matrix_shape=(32, 64)):
         self.r = matrix_shape[0]
         self.c = matrix_shape[1]
@@ -77,11 +76,11 @@ class Matrix_simulator:
 
     def build_matrix(self):
         matrix = []
-        col = []
 
         for r in range(self.r):
+            col = []
             for c in range(self.c):
-                col.append("o ")
+                col.append("• ")
             matrix.append(col)
         return matrix
 
@@ -92,54 +91,47 @@ class Matrix_simulator:
         return pos_list
 
     def print_matrix(self):
+        print("\n\n\n\n\n\n")
+
         for r in range(self.r):
             for c in range(self.c):
                 print(self.matrix[r][c], end="")
             print()
-        print("\n\n\n")
 
     def simulate_led_matrix(self):
         for r in range(self.r):
             for c in range(self.c):
                 position_tuple_list = self.position_list()
-                matrix_coord = (r, c)
-                if matrix_coord in position_tuple_list:
-                    self.matrix[r][c] = "∆ "
-                    break
-                else:
-                    self.matrix[r][c] = "o "
+                matrix_coord = (c, r)
+
+                for coord in position_tuple_list:
+                    if Physics.occupies_same_space(coord, matrix_coord):
+                        self.matrix[r][c] = "X "
+                        break
+                    else:
+                        self.matrix[r][c] = "• "
+
         self.print_matrix()
-
-
-def physics_test(frame_rate=10):
-    env = Physics()
-    p = PhysicalPixel(Physics.Vector2(np.random.randint(64), np.random.randint(33)), env, matrix=Dmatrix)
-    env.add(p)
-    p.add_force(Physics.Vector2(0.3,0.2))
-    
-    init_time = time.time()
-    i = 0
-
-    while True:
-        i+=1
-        delta_time = time.time() - init_time
-
-        env.update_environment()
-        Dmatrix.Clear()
 
 
 def frame_rate_test(fr=68):
     env = Physics(fps=fr)
     start_time = time.time()
     for _ in range(10):
-        x = PhysicalPixel(position=Physics.Vector2(16, 32), environment=env, mass=.5, matrix=None)
-        x.add_force(Physics.Vector2(np.random.sample() * 100, np.random.sample() * 100))
+        x = PhysicalPixel(position=Physics.Vector2(32, 16),
+                          environment=env, mass=10, matrix=None)
         env.add(x)
 
     i = 0
     frames_passed = 0
 
-    matrix = Matrix_simulator(env.get_object_list())
+    matrix = MatrixSimulator(env.get_object_list())
+    matrix.print_matrix()
+
+    for obj in env.object_list:
+        obj.add_force(Physics.Vector2(np.random.uniform(-5000, 5000), np.random.uniform(-5000, 5000)))
+
+    time.sleep(2)
     while True:
         env.update_environment()
         delta_time = time.time() - start_time

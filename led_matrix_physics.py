@@ -34,9 +34,8 @@ class Physics:
 
     class Vector2():
         def __init__(self, x, y):
-            self.vector = [x, y]
-            self.x = self.vector[0]
-            self.y = self.vector[1]
+            self.x = x
+            self.y = y
 
         def add(self, other_vector):
             self.x = self.x + other_vector.x
@@ -88,6 +87,10 @@ class Physics:
         @staticmethod
         def print_vector(vector):
             print("<" + str(vector.x) + ",", str(vector.y) + ">")
+
+    @staticmethod
+    def occupies_same_space(coordinate1, coordinate2):
+        return coordinate1[0] == coordinate2[0] and coordinate1[1] == coordinate2[1]
 
     class ForceEmitter:
         def __init__(self, force, radius, obj_list):

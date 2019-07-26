@@ -1,4 +1,4 @@
-from led_matrix_physics import Physics, PhysicalPixel
+from led_matrix_physics import Physics, PhysicalPixel, Vector2, ForceEmitter
 import numpy as np
 import time
 
@@ -39,16 +39,75 @@ class Bar():
                 Dmatrix.SetPixel(x_bar + self.x, y_bar, r, g, b)
 
 
-class Circle():
-    def __init__(self, x, y ,r):
-        self.x = x
-        self.y = y
+class CirclePhysComp:
+    def __init__(self, pos, r, points, physical_pixel, fill=False):
+
+        self.physical_pixel = physical_pixel
+
         self.r = r
+        self.position = pos
+        self.points = points
+        self.point_list = []
 
-        self.build(x, y, r)
+        if not fill:
+            self.build()
+        else:
+            self.fill_build()
 
-    def build(self, x, y, r):
-        return x
+    def build(self):
+        # r^2 = x^2 + y^2
+        # r^2 - x^2 = y^2
+        # squrt(r^2 - x^2) = +-y
+
+        r = self.r
+        x = -r
+        step_size = int(2*r / self.points)
+
+        while x <= r:
+
+            y = np.sqrt(pow(r, 2) - pow(x, 2))
+
+            y = round(y)
+
+            pos = self.physical_pixel.clone()
+            pos.position.x, pos.position.y = self.position.x + x, self.position.y + y
+            self.point_list.append(pos)
+
+            neg = self.physical_pixel.clone()
+            neg.position.x, neg.position.y = self.position.x + x, self.position.y - y
+            self.point_list.append(neg)
+
+            x += step_size
+
+    def fill_build(self):
+        # r^2 = x^2 + y^2
+        # r^2 - x^2 = y^2
+        # squrt(r^2 - x^2) = +-y
+
+        r = self.r
+
+        while r != 0:
+
+            x = -r
+            while x <= r:
+
+                y = np.sqrt(pow(r, 2) - pow(x, 2))
+
+                pos = self.physical_pixel.clone()
+                pos.position.x, pos.position.y = self.position.x + x, self.position.y + y
+                self.point_list.append(pos)
+
+                neg = self.physical_pixel.clone()
+                neg.position.x, neg.position.y = self.position.x + x, self.position.y - y
+                self.point_list.append(neg)
+
+                x += 1
+            r -= 1
+
+    def add_force(self, f):
+        force = Vector2(f.x, f.y)
+        for i in self.point_list:
+            i.add_force(force)
 
 
 def bar_test():
@@ -57,7 +116,7 @@ def bar_test():
     for i in range(64):
         
         if i % w == 0:
-            bar_list.append(Bar(w,i))            
+            bar_list.append(Bar(w, i))
             
     while True:
         i = 0
@@ -66,6 +125,7 @@ def bar_test():
         for bar in bar_list:
             i += bar.x
             bar.build(int(np.random.sample() * 32))
+
 
 class MatrixSimulator:
     def __init__(self, obj_list, matrix_shape=(32, 64)):
@@ -106,32 +166,43 @@ class MatrixSimulator:
 
                 for coord in position_tuple_list:
                     if Physics.occupies_same_space(coord, matrix_coord):
-                        self.matrix[r][c] = "X "
+                        self.matrix[r][c] = "@ "
                         break
                     else:
-                        self.matrix[r][c] = "• "
+                        self.matrix[r][c] = "- "
 
         self.print_matrix()
 
 
-def frame_rate_test(fr=68):
-    env = Physics(fps=fr)
+def frame_rate_test(fr=1000):
+
+    env = Physics(fps=fr, air_resistance=0.97)
     start_time = time.time()
-    for _ in range(10):
-        x = PhysicalPixel(position=Physics.Vector2(32, 16),
-                          environment=env, mass=10, matrix=None)
-        env.add(x)
+
+    # for i in range(20):
+    #     x = PhysicalPixel(position=Vector2(i, 16),
+    #                       environment=env, mass=np.random.randint(1, 10), matrix=None)
+    #     env.add(x)
+
+    x = PhysicalPixel(position=Vector2(32, 16),
+                      environment=env,
+                      matrix=None)
+
+    fe = ForceEmitter(5000, 30, env.object_list)
+
+    circle = CirclePhysComp(Vector2(32, 10), r=10, points=10, physical_pixel=x)
+    env.add_physical_body(circle)
+
+    fe.detonate(Vector2(32, 16))
+
+    env.update_environment()
+    matrix = MatrixSimulator(env.get_object_list())
+    matrix.simulate_led_matrix()
 
     i = 0
     frames_passed = 0
+    delta_time = time.time() - start_time
 
-    matrix = MatrixSimulator(env.get_object_list())
-    matrix.print_matrix()
-
-    for obj in env.object_list:
-        obj.add_force(Physics.Vector2(np.random.uniform(-5000, 5000), np.random.uniform(-5000, 5000)))
-
-    time.sleep(2)
     while True:
         env.update_environment()
         delta_time = time.time() - start_time
@@ -139,10 +210,23 @@ def frame_rate_test(fr=68):
 
         frames_passed += 1
         i += 1
+        if i % 100 == 0:
+            env.clear()
+            circle = CirclePhysComp(Vector2(32, 10), r=3, points=10, physical_pixel=x, fill=True)
+
+            env.add_physical_body(circle)
+            rand1 = np.random.sample() * np.random.randint(-1, 2) * 20000
+            rand2 = np.random.sample() * np.random.randint(-1, 2) * 30000
+            env.update_environment()
+            matrix.simulate_led_matrix()
+
+            time.sleep(1)
+            circle.add_force(Vector2(rand1, rand2))
 
 
 frame_rate_test()
 Dmatrix.Clear()
+
         
     
     

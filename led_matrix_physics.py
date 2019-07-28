@@ -16,6 +16,7 @@ class Physics:
 
     def add(self, obj):
         self.object_list.append(obj)
+        return obj
 
     def add_list(self, obj_list):
         for o in obj_list:
@@ -23,6 +24,7 @@ class Physics:
 
     def add_physical_body(self, obj):
         self.add_list(obj.point_list)
+        return obj
 
     def update_environment(self):
         for obj in self.object_list:
@@ -106,6 +108,14 @@ class Vector2:
         return vect1.x * vect2.x + vect1.y * vect2.y
 
     @staticmethod
+    def random_vector(xy_range: tuple=(64, 32)):
+        rand_x = np.random.randint(0, xy_range[0])
+        rand_y = np.random.randint(0, xy_range[1])
+        rand_vector = Vector2(rand_x, rand_y)
+
+        return rand_vector
+
+    @staticmethod
     def print_vector(vector):
         print("<" + str(vector.x) + ",", str(vector.y) + ">")
 
@@ -137,6 +147,7 @@ class PhysicalPixel:
 
         if velocity is None:
             velocity = Vector2(0, 0)
+
         self.velocity = velocity
 
         self.momentum = None
@@ -236,6 +247,17 @@ class PhysicalPixel:
 
         return PhysicalPixel(position=Vector2(x, y), mass=mass,
                              environment=env, matrix=matrix)
+
+
+class RandomPhysicalPixel(PhysicalPixel):
+    def __init__(self, environment, position=None, mass=np.random.randint(1,10),
+                 matrix=None, c=(0, 100, 0), velocity=None,
+                 led_size=(64, 32), bounciness=np.random.sample(), gravity_enabled=True):
+
+        super(RandomPhysicalPixel, self).__init__(position=position, environment=environment, mass=mass, matrix=matrix,
+                                                  c=c, velocity=velocity, led_size=led_size, bounciness=bounciness,
+                                                  gravity_enabled=gravity_enabled)
+
 
 
 

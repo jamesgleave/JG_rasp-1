@@ -1,4 +1,5 @@
-from led_matrix_physics import Physics, PhysicalPixel, Vector2, ForceEmitter
+from led_matrix_physics import Physics, PhysicalPixel, RandomPhysicalPixel, Vector2, ForceEmitter
+import led_matrix_aud_in
 import numpy as np
 import time
 
@@ -18,7 +19,7 @@ except ImportError:
     print("The package rgbmatrix was not found")
 
 
-class Bar():
+class Bar:
     def __init__(self, width, x, color_scheme=None):
         self.w = width
         self.x = x
@@ -29,14 +30,28 @@ class Bar():
         self.build()
         
     def build(self, y=0):
-        r,g,b = 0,0,100
-        
+        r, g, b = 0, 0, 100
+
         for x_bar in range(self.w):
             for y_bar in range(y):
                 r = y * 8 
                 g = x_bar * 45
                 
                 Dmatrix.SetPixel(x_bar + self.x, y_bar, r, g, b)
+
+
+class Spectrum(led_matrix_aud_in.Spectrogram):
+
+    def __init__(self):
+        super(led_matrix_aud_in.Spectrogram, self).__init__()
+
+    def display(self):
+        r, g, b = 0, 0, 100
+
+        for row in range(options.row):
+            y = self.y_val[row]
+            r = y * 10
+            Dmatrix.SetPixel(row, y, r, g, b)
 
 
 class CirclePhysComp:
@@ -106,8 +121,12 @@ class CirclePhysComp:
 
     def add_force(self, f):
         force = Vector2(f.x, f.y)
-        for i in self.point_list:
-            i.add_force(force)
+        for p in self.point_list:
+            p.add_force(force)
+
+    # def update(self):
+    #     for p in self.point_list:
+    #         p.update()
 
 
 def bar_test():
@@ -175,7 +194,6 @@ class MatrixSimulator:
 
 
 def frame_rate_test(fr=1000):
-
     env = Physics(fps=fr, air_resistance=0.97)
     start_time = time.time()
 
@@ -224,8 +242,8 @@ def frame_rate_test(fr=1000):
             circle.add_force(Vector2(rand1, rand2))
 
 
-frame_rate_test()
-Dmatrix.Clear()
+# frame_rate_test()
+# Dmatrix.Clear()
 
         
     

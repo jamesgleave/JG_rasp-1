@@ -3,6 +3,7 @@ from led_matrix_physics_objects import Vector2
 import led_matrix_static_objects
 import led_matrix_aud_in as JAudio
 import numpy as np
+import time
 
 try:
     from rgbmatrix import RGBMatrix, RGBMatrixOptions
@@ -101,7 +102,7 @@ class PWorld:
         """Summary of method
 
         Parameters:
-        pos (physics_engine.Vector2): This can be left blank to be randomized, but can also be explicitly provided
+        pos (physics_engine.Vector2): This can be left blank, but can also be explicitly provided. Default is (32,16)
 
         r (int): The circles radius
 
@@ -127,6 +128,9 @@ class PWorld:
 
         if environment is None:
             environment = self.environment
+
+        if pos is None:
+            pos = Vector2(32, 16)
 
         if matrix is None:
             matrix = self.matrix

@@ -23,9 +23,9 @@ class Pulsar:
             peak = self.aud_in.update()
             print(peak)
             JWorld.make_circle(peak, 32, 16, matrix=self.Dmatrix)
-            # Dmatrix.Clear()
-            # Dmatrix = RGBMatrix(options=options)
-            # Dmatrix.Clear()
+            Dmatrix.Clear()
+            Dmatrix = RGBMatrix(options=options)
+            Dmatrix.Clear()
 
 
 if __name__ == '__main__':

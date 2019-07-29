@@ -39,7 +39,11 @@ def audio_test():
 
 def static_test():
     matrix = RGBMatrix(options=Jworld.options)
-    rect = Jworld.make_rect(5, 32, 10, matrix)
+    rect = Jworld.make_rect(5, 0, 10, matrix)
+
+    for x in range(10):
+        rect.update()
+        Jworld.time.sleep(1)
 
 
 

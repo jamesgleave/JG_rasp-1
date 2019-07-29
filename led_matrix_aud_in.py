@@ -131,7 +131,6 @@ class Waveform(object):
         data = np.fromstring(stream.read(CHUNK), dtype=np.int16)
         peak = np.average(np.abs(data)) * 2
         bars = "#" * int(100 * peak / 2 ** 16)
-        # print("%04d %05d %s" % (i, peak, bars))
         self.peak = int(500 * peak / 2 ** 16)
         self.set_matrix_height(bars)
         return self.peak

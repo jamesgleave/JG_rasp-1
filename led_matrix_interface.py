@@ -22,7 +22,7 @@ except ImportError:
 
 class PWorld:
 
-    def __init__(self, air_resistance=0.95, g=.5, fps=60):
+    def __init__(self, air_resistance=0.95, g=.5, fps=60, matrix=None):
         """Summary of Construction
 
         Parameters:
@@ -33,11 +33,15 @@ class PWorld:
 
         fps (int): The timescale of the world.
 
+        matrix (RGBMatrix): Where the world will be shown
+
        """
 
         self.environment = physics_engine.Physics(air_resistance=air_resistance, g=g, fps=fps)
 
         self.simulated_matrix = None
+
+        self.matrix = matrix
 
     def add_pixel(self, environment=None, position=None,
                   mass=None, matrix=None, c=None, velocity=None,
@@ -53,7 +57,7 @@ class PWorld:
 
         mass (int): The mass of the pixel
 
-        matrix (RGBMatrix): This is required for any led use.
+        matrix (RGBMatrix): This is required for any led use if none was passed to the PWorld.
 
         c (Tuple): The (r, g, b) values of the pixel
 
@@ -68,6 +72,9 @@ class PWorld:
         
         if environment is None:
             environment = self.environment
+
+        if matrix is None:
+            matrix = self.matrix
 
         if position is None:
             position = Vector2.random_vector()
@@ -105,7 +112,7 @@ class PWorld:
 
         mass (int): The mass of the pixel
 
-        matrix (RGBMatrix): This is required for any led use.
+        matrix (RGBMatrix): This is required for any led use if none was passed to the PWorld.
 
         c (Tuple): The (r, g, b) values of the pixel
 
@@ -120,6 +127,9 @@ class PWorld:
 
         if environment is None:
             environment = self.environment
+
+        if matrix is None:
+            matrix = self.matrix
 
         if mass is None:
             mass = np.random.randint(1, 10)

@@ -95,7 +95,7 @@ class PWorld:
         return self.environment.add(physics_engine.PhysicalPixel(position, environment, mass, matrix, c, velocity,
                                     led_size, bounciness, gravity_enabled))
 
-    def add_circle(self, pos, r, points, environment=None,
+    def add_circle(self, r, points, pos=None, environment=None,
                    mass=None, matrix=None, c=None, led_size=(64, 32),
                    bounciness=None, gravity_enabled=True, fill=False):
 

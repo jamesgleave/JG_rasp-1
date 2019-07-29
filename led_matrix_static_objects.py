@@ -222,6 +222,30 @@ class Rect(Shape):
                     self.Dmatrix.SetPixel(x_bar + self.x, 0, r, g, b)
                     self.Dmatrix.SetPixel(x_bar + self.x, self.y, r, g, b)
 
+    def update(self, width=None, x=None, y=None, c=None, gradient=None):
+        if x is None:
+            x = self.x
+
+        if y is None:
+            y = self.y
+
+        if width is None:
+            width = self.w
+
+        if c is None:
+            c = self.colour
+
+        if gradient is None:
+            gradient = self.gradient
+
+        self.w = width
+        self.x = x
+        self.y = y
+        self.colour = c
+        self.gradient = gradient
+
+        self.build()
+
 
 class Triangle(Shape):
     def __init__(self, p1, p2, p3, matrix, colour_scheme=None, gradient=None, fill=True):

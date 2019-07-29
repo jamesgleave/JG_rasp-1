@@ -4,8 +4,7 @@ import time
 try:
     from rgbmatrix import RGBMatrix, RGBMatrixOptions
 except ImportError:
-    print("The package rgbmatrix was not found")
-
+    pass
 
 class Physics:
     def __init__(self, air_resistance=0.95, g=-.5, fps=60):

@@ -11,11 +11,6 @@ from led_matrix_physics import Physics, PhysicalPixel, RandomPhysicalPixel, Vect
 import numpy as np
 import time
 
-try:
-    from rgbmatrix import RGBMatrix, RGBMatrixOptions
-except ImportError:
-    print("The package rgbmatrix was not found")
-
 
 class CirclePhysComp:
     def __init__(self, pos, r, points, physical_pixel, fill=False):

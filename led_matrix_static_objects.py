@@ -23,7 +23,7 @@ class Shape(object):
         if C is not None:
             r, g, b = C
         else:
-            r, g, b = 35, 100, 110
+            r, g, b = 10, 10, 10
 
         if G is not None:
             y_lim = self.Dmatrix.options.rows
@@ -133,7 +133,7 @@ class Circle(Shape):
        """
 
         self.r = r
-        self.x = x
+        self.x = x - r
         self.y = y
         self.Dmatrix = matrix
         self.colour = colour_scheme
@@ -144,8 +144,8 @@ class Circle(Shape):
         else:
             self.hollow_build()
 
-    def build(self):
-        for x in range(self.x):
+    def hollow_build(self):
+        for x in range(self.r * 2):
             for y in range(self.y):
                 x_squared = x * x
                 r_squared = self.r * self.r
@@ -154,6 +154,15 @@ class Circle(Shape):
                 r, g, b = self.colorize(x, y)
                 self.Dmatrix.SetPixel(x + self.x, y + self.y, r, g, b)
                 self.Dmatrix.SetPixel(x + self.x, -y + self.y, r, g, b)
+
+    def build(self, custom_color=False):
+        for x in range(self.r * 2):
+            x_squared = x * x
+            r_squared = self.r * self.r
+            y = np.sqrt(r_squared - x_squared)
+            for y_point in range(-y, y + 1):
+                r, g, b = self.colorize(x, y)
+                self.Dmatrix.SetPixel(x + self.x, y_point + self.y, r, g, b)
 
 
 class Rect(Shape):
@@ -235,6 +244,14 @@ class Triangle(Shape):
         Line((x1, y1), (x2, y2), matrix=self.Dmatrix, colour_scheme=self.colour, gradient=self.gradient)
         Line((x1, y1), (x3, y3), matrix=self.Dmatrix, colour_scheme=self.colour, gradient=self.gradient)
         Line((x2, y2), (x3, y3), matrix=self.Dmatrix, colour_scheme=self.colour, gradient=self.gradient)
+
+
+def draw_circular_fractal(r, x, y, Dmatrix):
+    Circle(r, x, y, Dmatrix)
+    if r > 1:
+        r *= int(0.75)
+    draw_circular_fractal(r, x, y, Dmatrix)
+
 
 
 

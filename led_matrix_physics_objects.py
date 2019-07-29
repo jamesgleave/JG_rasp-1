@@ -13,16 +13,6 @@ import time
 
 try:
     from rgbmatrix import RGBMatrix, RGBMatrixOptions
-
-    options = RGBMatrixOptions()
-    options.rows = 32
-    options.cols = 64
-    options.chain_length = 1
-    options.parallel = 1
-    options.hardware_mapping = 'adafruit-hat'
-    Dmatrix = RGBMatrix(options=options)
-    Dmatrix.Clear()
-
 except ImportError:
     print("The package rgbmatrix was not found")
 

@@ -22,14 +22,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fftpack import fft
 import time
-from tkinter import TclError
 import math
+import led_matrix_static_objects as shapes
 
 # constants
 CHUNK = 1024         # samples per frame
 FORMAT = pyaudio.paInt16     # audio format (bytes per sample?)
 CHANNELS = 1                 # single channel for microphone
-RATE = 44100                 # samples per second
+RATE = 44100  # samples per second
+
+p = pyaudio.PyAudio()
 
 
 class Spectrogram:
@@ -42,7 +44,6 @@ class Spectrogram:
         fig, (ax1, ax2) = plt.subplots(2, figsize=(15, 7))
 
         # pyaudio class instance
-        p = pyaudio.PyAudio()
 
         bar_y = []
 
@@ -117,48 +118,38 @@ class Spectrogram:
     def display(self):
         """Overridden in subclass"""
 
-    # def sim_matrix(self):
-    #     for r in range(11):
-    #         for c in range(17):
-    #
-    #             if 32 - int(self.y_val[c] * 32) == c:
-    #                 self.matrix_sim[r][c] = "X "
-    #             else:
-    #                 self.matrix_sim[r][c] = "- "
 
-
-class Waveform:
-
+class Waveform(object):
     def __init__(self):
-        self.y_val = []
+        self.peak = 0
+        self.__start()
 
-    def start(self):
-
-        p = pyaudio.PyAudio()
+    def update(self):
         stream = p.open(format=pyaudio.paInt16, channels=1, rate=RATE, input=True,
                         frames_per_buffer=CHUNK)
 
-        for i in range(int(10 * 44100 / 1024)):  # go for a few seconds
-            data = np.fromstring(stream.read(CHUNK), dtype=np.int16)
-            peak = np.average(np.abs(data)) * 2
-            bars = "#" * int(100 * peak / 2 ** 16)
-            print("%04d %05d %s" % (i, peak, bars))
+        data = np.fromstring(stream.read(CHUNK), dtype=np.int16)
+        peak = np.average(np.abs(data)) * 2
+        bars = "#" * int(100 * peak / 2 ** 16)
+        # print("%04d %05d %s" % (i, peak, bars))
+        self.peak = int(500 * peak / 2 ** 16)
+        self.set_matrix_height(bars)
+        return self.peak
 
-            self.set_matrix_height(bars)
+    def __start(self):
+        self.update()
 
-        stream.stop_stream()
-        stream.close()
+    def terminate(self):
         p.terminate()
 
     def set_matrix_height(self, bars):
-        """"""
+        pass
 
 
 def sigmoid(x):
     return 1/(1 + pow(math.e, -x))
-
-
-# s = Spectrogram()
-# s.start()
-s = Waveform()
+#
+# s = Waveform()
+# while True:
+#     print(s.update())
 

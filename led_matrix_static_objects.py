@@ -3,13 +3,16 @@
 These classes creates static shapes (not effected by physics)
 
 """
-
+import math
 
 class Shape(object):
     def __init__(self, matrix=None, colour_scheme=None, gradient=None):
         self.gradient = gradient
         self.colour = colour_scheme
         self.Dmatrix = matrix
+
+    def build(self):
+        pass
 
     def colorize(self, x, y):
 
@@ -90,8 +93,9 @@ class Rect(Shape):
                 self.Dmatrix.SetPixel(x_bar + self.x, y_bar, r, g, b)
 
 
-class Circle:
+class Circle(Shape):
     def __init__(self, r, x, y, matrix, colour_scheme=None, gradient=None):
+        super(Circle, self).__init__()
 
         """Summary of Construction
 
@@ -115,5 +119,28 @@ class Circle:
         - 'r_grad_y-g_grad_x''
 
        """
+
+        self.r = r
+        self.x = x
+        self.y = y
+        self.Dmatrix = matrix
+        self.colour = colour_scheme
+        self.gradient = gradient
+
+        self.build()
+
+    def build(self):
+        for x in range(self.x):
+            for y in range(self.y):
+                x_squared = x * x
+                r_squared = self.r * self.r
+                y = math.sqrt(r_squared - x_squared)
+
+                r, g, b = self.colorize(x, y)
+                self.Dmatrix.SetPixel(x + self.x, y + self.y, r, g, b)
+
+
+
+
 
 

@@ -49,6 +49,9 @@ class Shape(object):
 
         return r, g, b
 
+    def hollow_build(self):
+        pass
+
 
 class Line(Shape):
     def __init__(self, point_1: tuple, point_2: tuple, matrix, colour_scheme=None, gradient=None, fill=True):
@@ -136,7 +139,10 @@ class Circle(Shape):
         self.colour = colour_scheme
         self.gradient = gradient
 
-        self.build()
+        if fill:
+            self.build()
+        else:
+            self.hollow_build()
 
     def build(self):
         for x in range(self.x):
@@ -184,7 +190,10 @@ class Rect(Shape):
         self.colour = colour_scheme
         self.gradient = gradient
 
-        self.build()
+        if fill:
+            self.build()
+        else:
+            self.hollow_build()
 
     def build(self):
         """Builds the Rect onscreen."""
@@ -213,15 +222,20 @@ class Triangle(Shape):
         self.Dmatrix = matrix
         self.colour = colour_scheme
         self.gradient = gradient
-        self.build()
 
-    def build(self):
+        if fill:
+            self.build()
+        else:
+            self.hollow_build()
+
+    def hollow_build(self):
         x1, x2, x3 = self.p1[0], self.p1[0], self.p3[0]
         y1, y2, y3 = self.p1[0], self.p1[0], self.p3[0]
 
         Line((x1, y1), (x2, y2), matrix=self.Dmatrix, colour_scheme=self.colour, gradient=self.gradient)
         Line((x1, y1), (x3, y3), matrix=self.Dmatrix, colour_scheme=self.colour, gradient=self.gradient)
         Line((x2, y2), (x3, y3), matrix=self.Dmatrix, colour_scheme=self.colour, gradient=self.gradient)
+
 
 
 

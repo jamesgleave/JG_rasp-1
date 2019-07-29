@@ -1,11 +1,15 @@
 """
 
-This class creates static shapes (not effected by physics)
+These classes creates static shapes (not effected by physics)
 
 """
 
 
 class Shape(object):
+    def __init__(self, matrix=None, colour_scheme=None, gradient=None):
+        self.gradient = gradient
+        self.colour = colour_scheme
+        self.Dmatrix = matrix
 
     def colorize(self, x, y):
 
@@ -42,8 +46,9 @@ class Shape(object):
         return r, g, b
 
 
-class Rect:
+class Rect(Shape):
     def __init__(self, width, x, y, matrix, colour_scheme=None, gradient=None):
+        super(Rect, self).__init__()
 
         """Summary of Construction
 

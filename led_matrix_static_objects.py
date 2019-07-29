@@ -36,16 +36,49 @@ class Rect:
         self.y = y
         self.Dmatrix = matrix
         self.colour = colour_scheme
+        self.gradient = gradient
 
         self.build()
 
     def build(self):
-        r, g, b = 0, 0, 100
-
+        """Builds the Rect onscreen."""
         for x_bar in range(self.w):
             for y_bar in range(self.y):
-
-                r = self.y
-                g = x_bar
-
+                r, g, b = self.colorize(x=x_bar, y=y_bar)
                 self.Dmatrix.SetPixel(x_bar + self.x, y_bar, r, g, b)
+
+    def colorize(self, x, y):
+
+        G = self.gradient
+        C = self.colour
+
+        if C is not None:
+            r, g, b = C
+        else:
+            r, g, b = 35, 100, 110
+
+        if G is not None:
+            y_lim = self.Dmatrix.options.rows
+            x_lim = self.Dmatrix.options.cols
+
+            if 'r_grad_y' in G:
+                r = 225 * (1 / y_lim) * y
+
+            if 'g_grad_y' in G:
+                g = 225 * (1 / y_lim) * y
+
+            if 'b_grad_y' in G:
+                b = 225 * (1 / y_lim) * y
+
+            if 'r_grad_x' in G:
+                r = 225 * (1 / x_lim) * x
+
+            if 'g_grad_x' in G:
+                g = 225 * (1 / x_lim) * x
+
+            if 'b_grad_x' in G:
+                b = 225 * (1 / x_lim) * x
+
+        return r, g, b
+
+

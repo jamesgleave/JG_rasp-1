@@ -6,7 +6,20 @@ import numpy as np
 class PWorld:
 
     def __init__(self, air_resistance=0.95, g=.5, fps=60):
+        """Summary of Construction
+
+        Parameters:
+        air_resistance (float): A float between 1 and 0 relating to the rate of negative acceleration experienced by
+        a physical pixel. The higher the value, the longer the object remains in motion.
+
+        g (float): The gravity of the world
+
+        fps (int): The timescale of the world.
+
+       """
+
         self.environment = display.Physics(air_resistance=air_resistance, g=g, fps=fps)
+
         self.simulated_matrix = None
 
     def add_pixel(self, environment=None, position=None,

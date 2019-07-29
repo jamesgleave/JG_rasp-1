@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c9c86da6-4a34-49a9-9716-3a44c3e45d46" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/led_matrix_physics_objects.py" beforeDir="false" afterPath="$PROJECT_DIR$/led_matrix_physics_objects.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,40 +57,57 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="14" />
+          <entry key="py" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="14" />
+          <entry key="Python" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="13798" />
+          <entry key="py" value="14187" />
           <entry key="txt" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="11" />
-          <entry key="Python" value="13798" />
+          <entry key="Python" value="14187" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/led_matrix_aud_in.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1735">
-              <caret line="34" column="18" lean-forward="true" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
+            <state relative-caret-position="230">
+              <caret line="165" lean-forward="true" selection-start-line="165" selection-end-line="165" />
               <folding>
                 <element signature="e#383#397#0" expanded="true" />
                 <marker date="1564419702000" expanded="true" signature="3059:3102" ph="..." />
                 <marker date="1564419702000" expanded="true" signature="3466:4545" ph="..." />
                 <marker date="1564419702000" expanded="true" signature="4597:4598" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/led_matrix_physics_objects.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="334">
+              <caret line="111" column="9" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
+              <folding>
+                <element signature="e#0#97#0" expanded="true" />
+                <element signature="e#859#2615#0" />
+                <element signature="e#3067#4353#0" />
+                <element signature="e#4390#5834#0" />
+                <marker date="1564420588000" expanded="true" signature="2523:2528" ph="..." />
+                <marker date="1564420588000" expanded="true" signature="2523:2691" ph="..." />
               </folding>
             </state>
           </provider>
@@ -134,6 +152,7 @@
         <option value="$PROJECT_DIR$/led_matrix_display.py" />
         <option value="$PROJECT_DIR$/led_matrix_aud_in.py" />
         <option value="$PROJECT_DIR$/led_matrix_static_objects.py" />
+        <option value="$PROJECT_DIR$/led_matrix_physics_objects.py" />
       </list>
     </option>
   </component>
@@ -179,7 +198,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.led_matrix_interface">
+  <component name="RunManager" selected="Python.led_matrix_physics_objects">
     <configuration name="led_matrix_aud_in" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="JG_rasp-1--master" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -264,14 +283,37 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="led_matrix_physics_objects" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="JG_rasp-1--master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/led_matrix_physics_objects.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.led_matrix_physics" />
       <item itemvalue="Python.led_matrix_display" />
       <item itemvalue="Python.led_matrix_aud_in" />
       <item itemvalue="Python.led_matrix_interface" />
+      <item itemvalue="Python.led_matrix_physics_objects" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.led_matrix_physics_objects" />
         <item itemvalue="Python.led_matrix_interface" />
         <item itemvalue="Python.led_matrix_aud_in" />
         <item itemvalue="Python.led_matrix_display" />
@@ -318,7 +360,21 @@
       <option name="project" value="LOCAL" />
       <updated>1564419923413</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added util">
+      <created>1564419978011</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1564419978011</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added util">
+      <created>1564419990554</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1564419990554</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -332,17 +388,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49597424" visible="true" weight="0.20171674" />
-      <window_info id="Structure" order="1" sideWeight="0.50402576" side_tool="true" visible="true" weight="0.20171674" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49551168" visible="true" weight="0.20171674" />
+      <window_info id="Structure" order="1" sideWeight="0.50448835" side_tool="true" visible="true" weight="0.20171674" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.25180724" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.25180724" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4506024" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32891566" />
+      <window_info active="true" anchor="bottom" id="TODO" order="6" visible="true" weight="0.32891566" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.6698795" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
@@ -472,24 +529,33 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <marker date="1564419509000" expanded="true" signature="571:833" ph="..." />
-            <marker date="1564419509000" expanded="true" signature="854:859" ph="..." />
-            <marker date="1564419509000" expanded="true" signature="1187:1192" ph="..." />
-            <marker date="1564419509000" expanded="true" signature="1187:1196" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/led_matrix_aud_in.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1735">
-          <caret line="34" column="18" lean-forward="true" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
+        <state relative-caret-position="230">
+          <caret line="165" lean-forward="true" selection-start-line="165" selection-end-line="165" />
           <folding>
             <element signature="e#383#397#0" expanded="true" />
             <marker date="1564419702000" expanded="true" signature="3059:3102" ph="..." />
             <marker date="1564419702000" expanded="true" signature="3466:4545" ph="..." />
             <marker date="1564419702000" expanded="true" signature="4597:4598" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/led_matrix_physics_objects.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="111" column="9" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#97#0" expanded="true" />
+            <element signature="e#859#2615#0" />
+            <element signature="e#3067#4353#0" />
+            <element signature="e#4390#5834#0" />
+            <marker date="1564420588000" expanded="true" signature="2523:2528" ph="..." />
+            <marker date="1564420588000" expanded="true" signature="2523:2691" ph="..." />
           </folding>
         </state>
       </provider>

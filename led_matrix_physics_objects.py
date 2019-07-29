@@ -1,3 +1,12 @@
+"""
+
+All of these classes are used to generate objects that are effected by physics from led_matrix_physics.
+
+From these geometric shapes, any complex shape should be possible to create!
+
+"""
+
+
 from led_matrix_physics import Physics, PhysicalPixel, RandomPhysicalPixel, Vector2, ForceEmitter
 import led_matrix_aud_in
 import numpy as np
@@ -17,20 +26,6 @@ try:
 
 except ImportError:
     print("The package rgbmatrix was not found")
-
-
-class Spectrum(led_matrix_aud_in.Spectrogram):
-
-    def __init__(self):
-        super(Spectrum, self).__init__()
-
-    def display(self):
-        r, g, b = 0, 0, 100
-
-        for row in range(options.row):
-            y = self.y_val[row]
-            r = y * 10
-            Dmatrix.SetPixel(row, y, r, g, b)
 
 
 class CirclePhysComp:
@@ -103,26 +98,20 @@ class CirclePhysComp:
         for p in self.point_list:
             p.add_force(force)
 
-    # def update(self):
-    #     for p in self.point_list:
-    #         p.update()
+
+class RectPhysComp:
+    # TODO implement this class
+    pass
 
 
-def bar_test():
-    bar_list = []
-    w = 5
-    for i in range(64):
-        
-        if i % w == 0:
-            bar_list.append(Bar(w, i))
-            
-    while True:
-        i = 0
-        time.sleep(0.1)
-        Dmatrix.Clear()
-        for bar in bar_list:
-            i += bar.x
-            bar.build(int(np.random.sample() * 32))
+class LinePhysComp:
+    # TODO implement this class
+    pass
+
+
+class TriPhysComp:
+    # TODO implement this class
+    pass
 
 
 class MatrixSimulator:

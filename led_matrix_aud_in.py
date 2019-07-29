@@ -126,8 +126,60 @@ class Spectrogram:
     #             else:
     #                 self.matrix_sim[r][c] = "- "
 
+
+class Waveform:
+
+    def __init__(self):
+        self.y_val = []
+
+    def start(self):
+
+        p = pyaudio.PyAudio()
+        stream = p.open(format=pyaudio.paInt16, channels=1, rate=RATE, input=True,
+                        frames_per_buffer=CHUNK)
+
+        for i in range(int(10 * 44100 / 1024)):  # go for a few seconds
+            data = np.fromstring(stream.read(CHUNK), dtype=np.int16)
+            peak = np.average(np.abs(data)) * 2
+            bars = "#" * int(100 * peak / 2 ** 16)
+            print("%04d %05d %s" % (i, peak, bars))
+
+            self.set_matrix_height(bars)
+
+        stream.stop_stream()
+        stream.close()
+        p.terminate()
+
+    def set_matrix_height(self, bars):
+        """"""
+
+
+class Bar:
+    def __init__(self, width, x, color_scheme=None):
+        self.w = width
+        self.x = x
+
+        if color_scheme != None:
+            print("do something")
+
+        self.build()
+
+    def build(self, y=0):
+        r, g, b = 0, 0, 100
+
+        for x_bar in range(self.w):
+            for y_bar in range(y):
+                r = y * 8
+                g = x_bar * 45
+
+                Dmatrix.SetPixel(x_bar + self.x, y_bar, r, g, b)
+
+
 def sigmoid(x):
     return 1/(1 + pow(math.e, -x))
 
+
 # s = Spectrogram()
 # s.start()
+s = Waveform()
+

@@ -19,31 +19,10 @@ except ImportError:
     print("The package rgbmatrix was not found")
 
 
-class Bar:
-    def __init__(self, width, x, color_scheme=None):
-        self.w = width
-        self.x = x
-        
-        if color_scheme != None:
-            print("do something")
-        
-        self.build()
-        
-    def build(self, y=0):
-        r, g, b = 0, 0, 100
-
-        for x_bar in range(self.w):
-            for y_bar in range(y):
-                r = y * 8 
-                g = x_bar * 45
-                
-                Dmatrix.SetPixel(x_bar + self.x, y_bar, r, g, b)
-
-
 class Spectrum(led_matrix_aud_in.Spectrogram):
 
     def __init__(self):
-        super(led_matrix_aud_in.Spectrogram, self).__init__()
+        super(Spectrum, self).__init__()
 
     def display(self):
         r, g, b = 0, 0, 100

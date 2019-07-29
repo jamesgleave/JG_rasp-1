@@ -8,6 +8,7 @@ options.chain_length = 1
 options.parallel = 1
 options.hardware_mapping = 'adafruit-hat'
 
+
 class Pulsar:
     def __init__(self):
         self.peak = 0

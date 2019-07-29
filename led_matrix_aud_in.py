@@ -154,27 +154,6 @@ class Waveform:
         """"""
 
 
-class Bar:
-    def __init__(self, width, x, color_scheme=None):
-        self.w = width
-        self.x = x
-
-        if color_scheme != None:
-            print("do something")
-
-        self.build()
-
-    def build(self, y=0):
-        r, g, b = 0, 0, 100
-
-        for x_bar in range(self.w):
-            for y_bar in range(y):
-                r = y * 8
-                g = x_bar * 45
-
-                Dmatrix.SetPixel(x_bar + self.x, y_bar, r, g, b)
-
-
 def sigmoid(x):
     return 1/(1 + pow(math.e, -x))
 

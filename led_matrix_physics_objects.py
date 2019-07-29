@@ -8,7 +8,6 @@ From these geometric shapes, any complex shape should be possible to create!
 
 
 from led_matrix_physics import Physics, PhysicalPixel, RandomPhysicalPixel, Vector2, ForceEmitter
-import led_matrix_aud_in
 import numpy as np
 import time
 

@@ -1,5 +1,5 @@
-import led_matrix_display as display
-from led_matrix_display import Vector2
+import led_matrix_physics_objects as display
+from led_matrix_physics_objects import Vector2
 import numpy as np
 
 

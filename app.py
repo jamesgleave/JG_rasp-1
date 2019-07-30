@@ -1,6 +1,9 @@
 from flask import Flask, request
 import led_matrix_vis_test_all as t
 from twilio.twiml.messaging_response import Message, MessagingResponse
+import webbrowser
+
+# webbrowser.open("https://www.twilio.com/console/phone-numbers/PNc2480db697222fd47d47b60eb6465898#")
 
 """Last login: Tue Jul 30 14:42:38 on ttys001
 /Users/martingleave/Downloads/ngrok ; exit;
@@ -51,25 +54,46 @@ Saving session...
 To run:
 
 sudo python /Users/martingleave/Documents/GitHub/JG_rasp-1/app.py
-/Users/martingleave/Documents/GitHub/JG_rasp-1/ngrok http 5000
-
+/Users/martingleave/Documents/GitHub/JG_rasp-1/ngrok http 8080
+https://www.twilio.com/console/phone-numbers/PNc2480db697222fd47d47b60eb6465898#
 """
 
 
 app = Flask(__name__)
+resp = MessagingResponse()
 
 
 @app.route('/sms', methods=['POST'])
 def sms():
     number = request.form['From']
     message_body = request.form['Body']
-
-    resp = MessagingResponse()
-    resp.message('Got it buddy guy!')
-    t.composite_test()
+    message = message_body.split(" -")
+    parse_sms(message)
+    # t.composite_test()
 
     return str(resp)
 
 
+def parse_sms(m: str):
+    print(m)
+
+    for command in m:
+        if "-help" in command:
+            resp.message("-\n\n*****************\n"
+                         "Enter any of these commands!\n"
+                         "-")
+
+        if "-spectrogram" in command:
+            print("spectrogram")
+
+        if "-text" in command:
+            text = command[5]
+            print(text)
+
+
 if __name__ == '__main__':
-    app.run()
+    app.run(port=8080)
+
+
+
+

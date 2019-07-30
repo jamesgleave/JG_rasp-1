@@ -1,5 +1,5 @@
 import led_matrix_interface as Jworld
-# from rgbmatrix import RGBMatrix, RGBMatrixOptions
+from rgbmatrix import RGBMatrix, RGBMatrixOptions
 
 
 def functions_testing():
@@ -39,11 +39,27 @@ def audio_test():
 
 def static_test():
     matrix = RGBMatrix(options=Jworld.options)
-    rect = Jworld.make_rect(5, 0, 10, matrix)
+    rect = Jworld.make_rect(22, 6, 32, 16, matrix=matrix)
 
-    for x in range(10):
-        rect.update()
-        Jworld.time.sleep(1)
+    for x in range(30):
+        x1, y1, x2, y2 = rect.get_corners()
+        rect.update(y1=(y1 + 1/60))
+        Jworld.time.sleep(1/60)
+        matrix.Clear()
+        if y1 > 32:
+            break
+
+
+def composite_test():
+    # Must create the matrix after the audio input to avoid seg. error
+    audio = Jworld.JAudio.Waveform()
+    matrix = RGBMatrix(options=Jworld.options)
+
+    circle = Jworld.make_circle(5, x=32, y=16, matrix=matrix)
+
+    for _ in range(30):
+        Jworld.time.sleep(1/60)
+
 
 
 

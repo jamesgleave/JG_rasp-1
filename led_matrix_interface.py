@@ -182,8 +182,12 @@ def make_circle(r, x, y, matrix, colour_scheme=None, gradient=None, fill=True):
     return led_matrix_static_objects.Circle(r, x, y, matrix, colour_scheme, gradient, fill)
 
 
-def make_rect(width, x, y, matrix, colour_scheme=None, gradient=None, fill=True):
-    return led_matrix_static_objects.Rect(width, x, y, matrix, colour_scheme, gradient, fill)
+def make_bar(width, x, y, matrix, colour_scheme=None, gradient=None, fill=True):
+    return led_matrix_static_objects.Bar(width, x, y, matrix, colour_scheme, gradient, fill)
+
+
+def make_rect(x1, x2, y1, y2, matrix, colour_scheme=None, gradient=None, fill=True):
+    return led_matrix_static_objects.Rect(x1, x2, y1, y2, matrix, colour_scheme, gradient, fill)
 
 
 def make_line(point_1: tuple, point_2: tuple, matrix, colour_scheme=None, gradient=None, fill=True):

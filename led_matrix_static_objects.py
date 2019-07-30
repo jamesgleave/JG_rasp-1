@@ -15,6 +15,9 @@ class Shape(object):
     def build(self):
         pass
 
+    def hollow_build(self):
+        pass
+
     def colorize(self, x, y):
 
         G = self.gradient
@@ -49,7 +52,10 @@ class Shape(object):
 
         return r, g, b
 
-    def hollow_build(self):
+    def update(self):
+        pass
+
+    def translate(self):
         pass
 
 
@@ -102,7 +108,7 @@ class Line(Shape):
             y = y1 + dy * (x - x1) / dx
             r, g, b = self.colorize(x, y)
 
-            self.Dmatrix.SetPixel(x, y, r, g, b)
+            self.Dmatrix.SetPixel(int(x), int(y), r, g, b)
 
 
 class Circle(Shape):
@@ -152,8 +158,8 @@ class Circle(Shape):
                 y = np.sqrt(r_squared - x_squared)
 
                 r, g, b = self.colorize(x, y)
-                self.Dmatrix.SetPixel(x + self.x, y + self.y, r, g, b)
-                self.Dmatrix.SetPixel(x + self.x, -y + self.y, r, g, b)
+                self.Dmatrix.SetPixel(int(x + self.x), int(y + self.y), r, g, b)
+                self.Dmatrix.SetPixel(int(x + self.x), int(-y + self.y), r, g, b)
 
     def build(self, custom_color=False):
         for x in range(self.r * 2):
@@ -162,12 +168,12 @@ class Circle(Shape):
             y = np.sqrt(r_squared - x_squared)
             for y_point in range(-y, y + 1):
                 r, g, b = self.colorize(x, y)
-                self.Dmatrix.SetPixel(x + self.x, y_point + self.y, r, g, b)
+                self.Dmatrix.SetPixel(int(x + self.x), int(y_point + self.y), r, g, b)
 
 
-class Rect(Shape):
+class Bar(Shape):
     def __init__(self, width, x, y, matrix, colour_scheme=None, gradient=None, fill=True):
-        super(Rect, self).__init__()
+        super(Bar, self).__init__()
 
         """Summary of Construction
 
@@ -209,7 +215,7 @@ class Rect(Shape):
         for x_bar in range(self.w):
             for y_bar in range(self.y):
                 r, g, b = self.colorize(x=x_bar, y=y_bar)
-                self.Dmatrix.SetPixel(x_bar + self.x, y_bar, r, g, b)
+                self.Dmatrix.SetPixel(int(x_bar + self.x), int(y_bar), r, g, b)
 
     def hollow_build(self):
         """Builds the hollow Rect onscreen."""
@@ -217,10 +223,10 @@ class Rect(Shape):
             for y_bar in range(self.y):
                 r, g, b = self.colorize(x=x_bar, y=y_bar)
                 if x_bar == 0 or x_bar == self.w - 1:
-                    self.Dmatrix.SetPixel(x_bar + self.x, y_bar, r, g, b)
+                    self.Dmatrix.SetPixel(int(x_bar + self.x), int(y_bar), r, g, b)
                 else:
-                    self.Dmatrix.SetPixel(x_bar + self.x, 0, r, g, b)
-                    self.Dmatrix.SetPixel(x_bar + self.x, self.y, r, g, b)
+                    self.Dmatrix.SetPixel(int(x_bar + self.x), 0, r, g, b)
+                    self.Dmatrix.SetPixel(int(x_bar + self.x), self.y, r, g, b)
 
     def update(self, width=None, x=None, y=None, c=None, gradient=None):
         if x is None:
@@ -246,6 +252,56 @@ class Rect(Shape):
 
         self.build()
 
+
+class Rect(Shape):
+    def __init__(self, x1, y1, x2, y2, matrix, colour_scheme=None, gradient=None, fill=True):
+        super(Rect, self).__init__()
+        self.x1, self.x2, self.y1, self.y2 = x1, x2, y1, y2
+        self.Dmatrix = matrix
+        self.colour = colour_scheme
+        self.gradient = gradient
+
+        self.build()
+
+    def build(self):
+        for x in range(self.x1, self.x2):
+            for y in range(self.y1, self.y2):
+                r, g, b = self.colorize(x=x, y=y)
+                self.Dmatrix.SetPixel(int(x), int(y), r, g, b)
+
+    def update(self, x1=None, y1=None, x2=None, y2=None, c=None, gradient=None, fill=True):
+        if x1 is None:
+            x1 = self.x1
+
+        if y1 is None:
+            y1 = self.y1
+
+        if x2 is None:
+            x2 = self.x2
+
+        if y2 is None:
+            y2 = self.y2
+
+        if c is None:
+            c = self.colour
+
+        if gradient is None:
+            gradient = self.gradient
+
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+        self.colour = c
+        self.gradient = gradient
+
+        self.build()
+
+    def get_corners(self):
+        """
+        :rtype: Tuple (x1, y1, x2, y2)
+        """
+        return self.x1, self.y1, self.x2, self.y2
 
 class Triangle(Shape):
     def __init__(self, p1, p2, p3, matrix, colour_scheme=None, gradient=None, fill=True):

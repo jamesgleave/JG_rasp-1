@@ -6,6 +6,7 @@ try:
 except ImportError:
     pass
 
+
 class Physics:
     def __init__(self, air_resistance=0.95, g=-.5, fps=60):
         self.gravity = g

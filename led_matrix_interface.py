@@ -198,10 +198,6 @@ def make_triangle(p1: tuple, p2: tuple, p3: tuple, matrix, colour_scheme=None, g
     return led_matrix_static_objects.Triangle(p1, p2, p3, matrix, colour_scheme, gradient, fill)
 
 
-def set_image(image, matrix, x=0, y=0):
-    matrix.SetImage(image, x, y)
-
-
 # env = PWorld(g=-.5)
 #
 # for s in range(10):

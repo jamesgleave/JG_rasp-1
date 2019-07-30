@@ -145,6 +145,20 @@ class MatrixSimulator:
         self.print_matrix()
 
 
+class PhysicalImage(PhysicalPixel):
+    def __init__(self, position, environment, image, mass=np.random.randint(1,10), matrix=None, c=(0, 100, 0), velocity=None,
+                 led_size=(64, 32), bounciness=np.random.sample(), gravity_enabled=True):
+
+        super(PhysicalImage, self).__init__(position=position, environment=environment, mass=mass, matrix=matrix,
+                                            c=c, velocity=velocity, led_size=led_size, bounciness=bounciness,
+                                            gravity_enabled=gravity_enabled)
+        self.image = image
+
+    def update_image_position(self):
+        self.m.SetImage(self.image, self.position.x, self.position.y)
+        self.update()
+
+
 def frame_rate_test(fr=1000):
     env = Physics(fps=fr, air_resistance=0.97)
     start_time = time.time()

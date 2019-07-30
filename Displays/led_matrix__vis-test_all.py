@@ -56,9 +56,15 @@ def composite_test():
     matrix = RGBMatrix(options=Jworld.options)
 
     circle = Jworld.make_circle(5, x=32, y=16, matrix=matrix)
+    last_peak = 0
 
     for _ in range(30):
+        peak = audio.update()
+        circle.update(r=peak)
+
         Jworld.time.sleep(1/60)
+        matrix.Clear()
+        last_peak = peak
 
 
 

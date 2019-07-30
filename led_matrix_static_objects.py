@@ -170,6 +170,33 @@ class Circle(Shape):
                 r, g, b = self.colorize(x, y)
                 self.Dmatrix.SetPixel(int(x + self.x), int(y_point + self.y), r, g, b)
 
+    def update(self, r=None, x=None, y=None, c=None, gradient=None, fill=True):
+        if r is None:
+            r = self.r
+
+        if x is None:
+            x = self.x
+
+        if y is None:
+            y = self.y
+
+        if c is None:
+            c = self.colour
+
+        if gradient is None:
+            gradient = self.gradient
+
+        self.r = r
+        self.x = x
+        self.r = r
+        self.colour = c
+        self.gradient = gradient
+
+        self.build()
+
+    def get_info(self):
+        return self.r, self.x, self.y
+
 
 class Bar(Shape):
     def __init__(self, width, x, y, matrix, colour_scheme=None, gradient=None, fill=True):
@@ -302,6 +329,7 @@ class Rect(Shape):
         :rtype: Tuple (x1, y1, x2, y2)
         """
         return self.x1, self.y1, self.x2, self.y2
+
 
 class Triangle(Shape):
     def __init__(self, p1, p2, p3, matrix, colour_scheme=None, gradient=None, fill=True):

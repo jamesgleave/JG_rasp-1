@@ -197,6 +197,11 @@ def make_line(point_1: tuple, point_2: tuple, matrix, colour_scheme=None, gradie
 def make_triangle(p1: tuple, p2: tuple, p3: tuple, matrix, colour_scheme=None, gradient=None, fill=True):
     return led_matrix_static_objects.Triangle(p1, p2, p3, matrix, colour_scheme, gradient, fill)
 
+
+def set_image(image, matrix, x=0, y=0):
+    matrix.SetImage(image, x, y)
+
+
 # env = PWorld(g=-.5)
 #
 # for s in range(10):

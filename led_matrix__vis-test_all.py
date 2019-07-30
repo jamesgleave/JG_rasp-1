@@ -1,6 +1,6 @@
 import led_matrix_interface as Jworld
-from rgbmatrix import RGBMatrix, RGBMatrixOptions
-
+import PIL
+# from rgbmatrix import RGBMatrix, RGBMatrixOptions
 
 def functions_testing():
     physics_test()
@@ -41,7 +41,7 @@ def static_test():
     matrix = RGBMatrix(options=Jworld.options)
     rect = Jworld.make_rect(22, 6, 32, 16, matrix=matrix)
 
-    for x in range(30):
+    for x in range(300):
         x1, y1, x2, y2 = rect.get_corners()
         rect.update(y1=(y1 + 1/60))
         Jworld.time.sleep(1/60)
@@ -53,20 +53,35 @@ def static_test():
 def composite_test():
     # Must create the matrix after the audio input to avoid seg. error
     audio = Jworld.JAudio.Waveform()
-    matrix = RGBMatrix(options=Jworld.options)
+    # matrix = RGBMatrix(options=Jworld.options)
 
-    circle = Jworld.make_circle(5, x=32, y=16, matrix=matrix)
+    # circle = Jworld.make_circle(5, x=32, y=16, matrix=matrix)
     last_peak = 0
 
-    for _ in range(30):
+    for _ in range(300):
         peak = audio.update()
-        circle.update(r=peak)
+        radius_update = int(last_peak)
+        # print(radius_update)
+        # circle.update(r=radius_update)
+        for _ in range(radius_update):
+            print("*", end="")
+
+        print(radius_update)
+        # print()
 
         Jworld.time.sleep(1/60)
-        matrix.Clear()
-        last_peak = peak
+        # matrix.Clear()
+
+        if peak > last_peak:
+            last_peak = peak
+
+        if last_peak > .1:
+            last_peak = last_peak * 0.9
+        else:
+            last_peak = 0
 
 
+composite_test()
 
 
 

@@ -1,8 +1,6 @@
 from flask import Flask, request
 import led_matrix_vis_test_all as t
 from twilio.twiml.messaging_response import Message, MessagingResponse
-import os
-
 
 """Last login: Tue Jul 30 14:42:38 on ttys001
 /Users/martingleave/Downloads/ngrok ; exit;
@@ -53,7 +51,7 @@ Saving session...
 To run:
 
 sudo python /Users/martingleave/Documents/GitHub/JG_rasp-1/app.py
-/Users/martingleave/Downloads/ngrok http 5000
+/Users/martingleave/Documents/GitHub/JG_rasp-1/ngrok http 5000
 
 """
 

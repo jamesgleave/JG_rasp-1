@@ -87,7 +87,7 @@ def parse_sms(m: str):
             print("spectrogram")
 
         if "-text" in command:
-            text = command[5]
+            text = command[7:]
             print(text)
 
 

@@ -1,7 +1,7 @@
 import led_matrix_interface as Jworld
 from PIL import Image, ImageDraw
-# from rgbmatrix import RGBMatrix, RGBMatrixOptions
-# from rgbmatrix import graphics
+from rgbmatrix import RGBMatrix, RGBMatrixOptions
+from rgbmatrix import graphics
 
 
 def functions_testing():
@@ -40,16 +40,42 @@ def audio_test():
 
 
 def static_test():
-    matrix = RGBMatrix(options=Jworld.options)
-    rect = Jworld.make_rect(22, 6, 32, 16, matrix=matrix)
+    audio = Jworld.JAudio.Waveform()
+    matrix = audio.Dmatrix
+    rect = Jworld.make_rect(32-10, 16-10, 32+10, 16+10, matrix=matrix)
+    
+    rect2 = Jworld.make_rect(32, 16, 32, 16, matrix=matrix, colour_scheme=(225,0,50))
 
-    for x in range(300):
-        x1, y1, x2, y2 = rect.get_corners()
-        rect.update(y1=(y1 + 1/60))
-        Jworld.time.sleep(1/60)
+    rect3 = Jworld.make_rect(32, 16, 32, 16, matrix=matrix, colour_scheme=(225,0,50))
+
+    rect_middle = Jworld.make_rect(32-10, 16-10, 32+10, 16+10, matrix=matrix, colour_scheme=(255,100,0))
+
+    last_peak = 0
+    while True:
+        peak = int(audio.update() * -1 * (1/(last_peak+1)))
+        p1 = peak/5
+        if peak > 15:
+            peak=15
+        
+        
+        rect.update(y1=(16 + peak), y2=(16 - peak), x1=(32 + peak), x2=(32 - peak))
+        
+        rect2.update(y1=(16 + p1), y2=(16 - p1), x1=(52 + p1), x2=(52 - p1))
+        
+        rect3.update(y1=(16 + p1), y2=(16 - p1), x1=(12 + p1), x2=(12 - p1))
+        
+        rect_middle.update(y1=(16 + p1/2), y2=(16 - p1/2), x1=(32 + p1/2), x2=(32 - p1/2))
+
+        
+        if peak > last_peak:
+            last_peak = peak
+        if last_peak > .1:
+            last_peak = last_peak * 0.99999
+        else:
+            last_peak = 0
+            
+        Jworld.time.sleep(.033333)
         matrix.Clear()
-        if y1 > 32:
-            break
 
 
 def composite_test():
@@ -57,27 +83,26 @@ def composite_test():
 
     # Must create the matrix after the audio input to avoid seg. error
     audio = Jworld.JAudio.Waveform()
-    # matrix = RGBMatrix(options=Jworld.options)
+    matrix = RGBMatrix(options=Jworld.options)
 
-    # circle = Jworld.make_circle(5, x=32, y=16, matrix=matrix)
+    circle = Jworld.make_circle(r=5, x=32, y=16, matrix=matrix)
     last_peak = 0
 
     for _ in range(300):
         peak = audio.update()
         radius_update = int(last_peak)
-        # print(radius_update)
-        # circle.update(r=radius_update)
-        for _ in range(radius_update):
-            print("*", end="")
+        circle.update(r=radius_update)
+        circle.build()
 
         print(radius_update)
-        # print()
+        
 
-        Jworld.time.sleep(1/60)
-        # matrix.Clear()
+        Jworld.time.sleep(5.01)
+        matrix.Clear()
 
         if peak > last_peak:
             last_peak = peak
+            matrix.SetPixel(32, 16, 225,0,0)
 
         if last_peak > .1:
             last_peak = last_peak * 0.9
@@ -94,28 +119,21 @@ def builtin_composite_test():
 
     image = Image.new("RGB", (64, 32))  # Can be larger than matrix if wanted!!
     draw = ImageDraw.Draw(image)  # Declare Draw instance before prims
-    # Draw some shapes into image (no immediate effect on matrix)...
-    draw.ellipse(xy=(32, 16), fill=(100, 5, 100), outline=(0, 100, 0))
+    #Draw some shapes into image (no immediate effect on matrix)...
+    draw.ellipse(xy=(32, 16, 42, 26), fill=(100, 5, 100), outline=(0, 100, 0))
 
     last_peak = 0
 
-    for _ in range(300):
+    for _ in range(1000):
         peak = audio.update()
         radius_update = int(last_peak)
 
         draw = ImageDraw.Draw(Image.new("RGB", (64, 32)))
-        draw.ellipse(xy=(32, 16), fill=(100, 5, 100), outline=(0, 100, 0))
+        draw.ellipse(xy=(22, 6, 42, 26), fill=(100, 5, 100), outline=(0, 100, 0))
+        matrix.SetImage(image, 32, 16)
 
+        Jworld.time.sleep(.3)
         matrix.Clear()
-        matrix.SetImage(image, 0, 0)
-
-        for _ in range(radius_update):
-            print("*", end="")
-
-        print(radius_update)
-
-        Jworld.time.sleep(1/60)
-        # matrix.Clear()
 
         if peak > last_peak:
             last_peak = peak
@@ -162,8 +180,6 @@ def text_test(text):
         time.sleep(0.05)
         offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
-
-
-
-
+#physics_test()
+static_test()
 

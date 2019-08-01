@@ -26,14 +26,14 @@ class Shape(object):
         if C is not None:
             r, g, b = C
         else:
-            r, g, b = 10, 10, 10
+            r, g, b = 100, 10, 225
 
         if G is not None:
-            y_lim = self.Dmatrix.options.rows
-            x_lim = self.Dmatrix.options.cols
+            y_lim = 32
+            x_lim = 64
 
             if 'r_grad_y' in G:
-                r = 225 * (1 / y_lim) * y
+                r = 225 * (1 / 64) * y
 
             if 'g_grad_y' in G:
                 g = 225 * (1 / y_lim) * y
@@ -60,7 +60,7 @@ class Shape(object):
 
 
 class Line(Shape):
-    def __init__(self, point_1: tuple, point_2: tuple, matrix, colour_scheme=None, gradient=None, fill=True):
+    def __init__(self, point_1, point_2, matrix, colour_scheme=None, gradient=None, fill=True):
         super(Line, self).__init__()
 
         """Summary of Construction
@@ -165,7 +165,7 @@ class Circle(Shape):
         for x in range(self.r * 2):
             x_squared = x * x
             r_squared = self.r * self.r
-            y = np.sqrt(r_squared - x_squared)
+            y = int(np.sqrt(np.abs(r_squared - x_squared)))
             for y_point in range(-y, y + 1):
                 r, g, b = self.colorize(x, y)
                 self.Dmatrix.SetPixel(int(x + self.x), int(y_point + self.y), r, g, b)
@@ -294,6 +294,7 @@ class Rect(Shape):
         for x in range(self.x1, self.x2):
             for y in range(self.y1, self.y2):
                 r, g, b = self.colorize(x=x, y=y)
+        
                 self.Dmatrix.SetPixel(int(x), int(y), r, g, b)
 
     def update(self, x1=None, y1=None, x2=None, y2=None, c=None, gradient=None, fill=True):
@@ -359,6 +360,7 @@ def draw_circular_fractal(r, x, y, Dmatrix):
     if r > 1:
         r *= int(0.75)
     draw_circular_fractal(r, x, y, Dmatrix)
+
 
 
 

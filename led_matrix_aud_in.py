@@ -126,10 +126,8 @@ class Waveform:
 
         data = np.fromstring(self.stream.read(CHUNK, exception_on_overflow=False), dtype=np.int16)
         peak = np.average(np.abs(data)) * 2
-        bars = "#" * int(500 * peak / 2 ** 16)
         self.peak = int(500 * peak / 2 ** 16)
-        self.set_matrix_height(bars)
-        
+       
         return self.peak
 
     def __start(self):
@@ -153,9 +151,6 @@ class Waveform:
     def terminate(self):
         p.terminate()
 
-    def set_matrix_height(self, bars):
-        pass        
-        
         
 def sigmoid(x):
     return 1/(1 + pow(math.e, -x))

@@ -1,5 +1,5 @@
-import led_matrix_physics_objects as physics_engine
-from led_matrix_physics_objects import Vector2
+import led_matrix_physics as physics_engine
+from led_matrix_physics import Vector2
 import led_matrix_static_objects
 import led_matrix_aud_in as JAudio
 import numpy as np
@@ -46,7 +46,7 @@ class PWorld:
 
     def add_pixel(self, environment=None, position=None,
                   mass=None, matrix=None, c=None, velocity=None,
-                  led_size=(64, 32), bounciness=None, gravity_enabled=True) -> physics_engine.PhysicalPixel:
+                  led_size=(64, 32), bounciness=None, gravity_enabled=True): 
 
         """Summary of method
 
@@ -190,11 +190,11 @@ def make_rect(x1, x2, y1, y2, matrix, colour_scheme=None, gradient=None, fill=Tr
     return led_matrix_static_objects.Rect(x1, x2, y1, y2, matrix, colour_scheme, gradient, fill)
 
 
-def make_line(point_1: tuple, point_2: tuple, matrix, colour_scheme=None, gradient=None, fill=True):
+def make_line(point_1, point_2, matrix, colour_scheme=None, gradient=None, fill=True):
     return led_matrix_static_objects.Line(point_1, point_2, matrix, colour_scheme, gradient, fill)
 
 
-def make_triangle(p1: tuple, p2: tuple, p3: tuple, matrix, colour_scheme=None, gradient=None, fill=True):
+def make_triangle(p1, p2, p3, matrix, colour_scheme=None, gradient=None, fill=True):
     return led_matrix_static_objects.Triangle(p1, p2, p3, matrix, colour_scheme, gradient, fill)
 
 
@@ -208,6 +208,7 @@ def make_triangle(p1: tuple, p2: tuple, p3: tuple, matrix, colour_scheme=None, g
 #
 # while True:
 #     env.update()
+
 
 
 

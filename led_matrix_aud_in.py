@@ -15,140 +15,166 @@ note: with 2048 samples per chunk, I'm getting 20FPS
 when also running the spectrum, its about 15FPS
 """
 
+
+
+from rgbmatrix import RGBMatrix, RGBMatrixOptions
+
+options = RGBMatrixOptions()
+options.rows = 32
+options.cols = 64
+options.chain_length = 1
+options.parallel = 1
+options.hardware_mapping = 'adafruit-hat'
+
 import pyaudio
 import os
 import struct
 import numpy as np
-import matplotlib.pyplot as plt
 from scipy.fftpack import fft
 import time
 import math
-import led_matrix_static_objects as shapes
 
 # constants
 CHUNK = 1024         # samples per frame
 FORMAT = pyaudio.paInt16     # audio format (bytes per sample?)
 CHANNELS = 1                 # single channel for microphone
-RATE = 44100  # samples per second
-
-p = pyaudio.PyAudio()
+RATE = 44100                 # samples per second
 
 
 class Spectrogram:
 
     def __init__(self):
         self.y_val = []
+        self.stream = None
+        self.Dmatrix = None
+        self.start()
 
     def start(self):
-        # create matplotlib figure and axes
-        fig, (ax1, ax2) = plt.subplots(2, figsize=(15, 7))
-
         # pyaudio class instance
-
-        bar_y = []
-
+        p = pyaudio.PyAudio()
+        
         # stream object to get data from microphone
-        stream = p.open(
+        self.stream = p.open(
             format=FORMAT,
             channels=CHANNELS,
             rate=RATE,
+            frames_per_buffer=CHUNK,
+            input_device_index=1,
             input=True,
-            output=True,
-            frames_per_buffer=CHUNK
         )
-
-        # variable for plotting
-        x = np.arange(0, 2 * CHUNK, 2)  # samples (waveform)
-        xf = np.linspace(0, RATE, CHUNK)  # frequencies (spectrum)
-
-        # create a line object with random data
-        line, = ax1.plot(x, np.random.rand(CHUNK), '-', lw=2)
-
-        # create semilogx line for spectrum
-        line_fft, = ax2.semilogx(xf, np.random.rand(CHUNK), '-', lw=2)
+        
+        self.Dmatrix = RGBMatrix(options=options)
 
         print('stream started')
-
-        # for measuring frame rate
-        frame_count = 0
-        start_time = time.time()
-
-        while True:
-
-            # binary data
-            data = stream.read(CHUNK, exception_on_overflow=False)
-
-            # convert data to integers, make np array, then offset it by 127
-            data_int = struct.unpack(str(2 * CHUNK) + 'B', data)
-
-            # create np array and offset by 128
-            data_np = np.array(data_int, dtype='b')[::2] + 128
-
-            line.set_ydata(data_np)
-
-            # compute FFT and update line
-            yf = fft(data_int)
-            line_fft.set_ydata(np.abs(yf[0:CHUNK]) / (128 * CHUNK))
-
-            freq = (np.abs(yf[0:CHUNK]) / (128 * CHUNK))
-
-            counter = 0
-            ave_list = []
-
-            for n in freq:
-                ave_list.append(n)
-                if counter % 32 == 0:
-                    y = np.sum(ave_list, axis=0)
-                    bar_y.append(sigmoid(y))
-
-                    self.y_val = bar_y.copy()
-
-                    ave_list = []
-                counter += 1
-            bar_y.clear()
-            self.print_spectrogram()
-            self.display()
-
-    def print_spectrogram(self):
-        for i in range(len(self.y_val)):
-
-            print(32 - int(self.y_val[i] * 32), end=", ")
-        print()
-
+        
+    def update_matrix(self):
+        Dmatrix = self.Dmatrix
+        Dmatrix.Clear()
+        for x in range(64):
+            bar_y = int((self.y_val[int(x/4)]) * 32) - 20
+                
+            for y in range(32):
+                
+                if y <= bar_y:
+                    Dmatrix.SetPixel(x, y, y*6,100,x*2)
+                else:
+                    break
+                
+        time.sleep(0.0166666)
+        
     def display(self):
-        """Overridden in subclass"""
+        stream = self.stream
+        bar_y = []
 
+        # binary data
+        data = stream.read(CHUNK, exception_on_overflow=False)
 
-class Waveform(object):
+        # convert data to integers, make np array, then offset it by 127
+        data_int = struct.unpack(str(2 * CHUNK) + 'B', data)
+
+        # create np array and offset by 128
+        data_np = np.array(data_int, dtype='b')[::2] + 128
+        # compute FFT and update line
+        yf = fft(data_int)
+        freq = (np.abs(yf[0:CHUNK]) / (128 * CHUNK))
+
+        counter = 0
+        ave_list = []
+
+        for n in freq:
+            ave_list.append(n)
+            if counter % 64 == 0:
+                y = np.sum(ave_list, axis=0)
+                bar_y.append((y))
+
+                self.y_val = bar_y[:]
+
+                ave_list = []
+            counter += 1
+        clear(bar_y)
+        self.update_matrix()
+        
+        
+class Waveform:
     def __init__(self):
+        self.Dmatrix = None
         self.peak = 0
+        self.stream = None        
         self.__start()
-
+        
     def update(self):
-        stream = p.open(format=pyaudio.paInt16, channels=1, rate=RATE, input=True,
-                        frames_per_buffer=CHUNK)
 
-        data = np.fromstring(stream.read(CHUNK), dtype=np.int16)
+        data = np.fromstring(self.stream.read(CHUNK, exception_on_overflow=False), dtype=np.int16)
         peak = np.average(np.abs(data)) * 2
-        bars = "#" * int(100 * peak / 2 ** 16)
+        bars = "#" * int(500 * peak / 2 ** 16)
         self.peak = int(500 * peak / 2 ** 16)
         self.set_matrix_height(bars)
+        
         return self.peak
 
     def __start(self):
-        self.update()
+        # pyaudio class instance
+        p = pyaudio.PyAudio()
+        
+        # stream object to get data from microphone
+        self.stream = p.open(
+            format=FORMAT,
+            channels=CHANNELS,
+            rate=RATE,
+            frames_per_buffer=CHUNK,
+            input_device_index=1,
+            input=True,
+        )
+        
+        self.Dmatrix = RGBMatrix(options=options)
+
+        print('stream started')
 
     def terminate(self):
         p.terminate()
 
     def set_matrix_height(self, bars):
-        pass
-
-
+        pass        
+        
+        
 def sigmoid(x):
     return 1/(1 + pow(math.e, -x))
-#
-# s = Waveform()
-# while True:
-#     print(s.update())
+
+def clear(list):
+    del list[:]
+    
+def run_spectrogram(s):
+    while True:
+        s.display()
+    
+def run_waveform(w):
+    while True:
+        w.update()
+
+#s = Spectrogram()
+#s = run_spectrogram(s)
+#s = Waveform()
+#run_waveform(s)
+    
+
 

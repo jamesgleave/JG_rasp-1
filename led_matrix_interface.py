@@ -181,8 +181,8 @@ class PWorld:
 
 
 class Pen:
-    def __init__(self, matrix):
-        self.matrix = matrix
+    def __init__(self, canvas):
+        self.matrix = canvas
 
     def draw_line(self, x1, y1, x2, y2, c):
 
@@ -199,7 +199,7 @@ class Pen:
         if fill:
             for radius in range(r):
                 if gradient is not None:
-                    red, green, blue = self.gradient(gradient, x, r, c)
+                    red, green, blue = self.__gradient(gradient, x, r, c)
                     c.red, c.green, c.blue = red, green, blue
 
                 graphics.DrawCircle(self.matrix, x, y, radius, c)
@@ -217,7 +217,7 @@ class Pen:
         if fill:
             for x in range(abs(x2 - x1)):
                 if gradient is not None:
-                    red, green, blue = self.gradient(gradient, x, y1, c)
+                    red, green, blue = self.__gradient(gradient, x, y1, c)
                     c.red, c.green, c.blue = red, green, blue
                 self.draw_line(x, y1, x, y2, c)
 
@@ -241,7 +241,7 @@ class Pen:
             self.draw_line(x2, y2, x3, y3, c)
 
     @staticmethod
-    def gradient(gradient, x, y, c):
+    def __gradient(gradient, x, y, c):
         """This calculates a colour gradient given the value of x and y and adds it to c"""
         r, g, b = c.red, c.green, c.blue
 

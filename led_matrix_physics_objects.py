@@ -8,6 +8,7 @@ From these geometric shapes, any complex shape should be possible to create!
 
 
 from led_matrix_physics import Physics, PhysicalPixel, RandomPhysicalPixel, Vector2, ForceEmitter
+from PIL import Image
 import numpy as np
 import time
 
@@ -152,8 +153,21 @@ class PhysicalImage(PhysicalPixel):
         super(PhysicalImage, self).__init__(position=position, environment=environment, mass=mass, matrix=matrix,
                                             c=c, velocity=velocity, led_size=led_size, bounciness=bounciness,
                                             gravity_enabled=gravity_enabled)
-        self.image = image
+        self.image = Image.open(image)
 
+    def check_bounds(self):
+        if self.position.x >= self.led_size[0] or self.position.x <= 0:
+            self.bounce(1)
+
+        if self.position.x + self.image.width >= self.led_size[0] or self.position.x <= 0:
+            self.bounce(1)
+
+        if self.position.y >= self.led_size[1] or self.position.y <= 0:
+            self.bounce(2)
+
+        if self.position.y - self.image.height >= self.led_size[1] or self.position.y <= 0:
+            self.bounce(2)
+        
     def update_image_position(self):
         self.m.SetImage(self.image, self.position.x, self.position.y)
         self.update()

@@ -15,8 +15,6 @@ note: with 2048 samples per chunk, I'm getting 20FPS
 when also running the spectrum, its about 15FPS
 """
 
-
-
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
 
 options = RGBMatrixOptions()

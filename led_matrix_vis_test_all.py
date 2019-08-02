@@ -4,7 +4,6 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from rgbmatrix import graphics
 
 
-
 def functions_testing():
     physics_test()
     audio_test()

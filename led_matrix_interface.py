@@ -4,6 +4,8 @@ import led_matrix_static_objects
 import led_matrix_aud_in as JAudio
 import numpy as np
 import time
+from rgbmatrix import graphics
+
 
 try:
     from rgbmatrix import RGBMatrix, RGBMatrixOptions
@@ -178,6 +180,103 @@ class PWorld:
             Vector2.print_vector(i.position)
 
 
+class Pen:
+    def __init__(self, matrix):
+        self.matrix = matrix
+
+    def draw_line(self, x1, y1, x2, y2, c):
+
+        if not isinstance(c, graphics.Color):
+            c = graphics.Color(c[0], c[1], c[2])
+
+        graphics.DrawLine(self.matrix, x1, y1, x2, y2, c)
+
+    def draw_circle(self, x, y, r, c, fill=False, gradient=None):
+
+        if not isinstance(c, graphics.Color):
+            c = graphics.Color(c[0], c[1], c[2])
+
+        if fill:
+            for radius in range(r):
+                if gradient is not None:
+                    red, green, blue = self.gradient(gradient, x, r, c)
+                    c.red, c.green, c.blue = red, green, blue
+
+                graphics.DrawCircle(self.matrix, x, y, radius, c)
+        else:
+            graphics.DrawCircle(self.matrix, x, y, r, c)
+
+    def draw_text(self, font, x, y, c, text):
+
+        if not isinstance(c, graphics.Color):
+            c = graphics.Color(c[0], c[1], c[2])
+
+        graphics.DrawText(self.matrix, font, x, y, c, text)
+
+    def draw_rect(self, x1, y1, x2, y2, c, fill=False, gradient=None):
+        if fill:
+            for x in range(abs(x2 - x1)):
+                if gradient is not None:
+                    red, green, blue = self.gradient(gradient, x, y1, c)
+                    c.red, c.green, c.blue = red, green, blue
+                self.draw_line(x, y1, x, y2, c)
+
+        else:
+            self.draw_line(x1, y1, x2, y1, c)
+            self.draw_line(x2, y1, x2, y2, c)
+            self.draw_line(x2, y2, x1, y2, c)
+            self.draw_line(x1, y2, x1, y1, c)
+
+    def draw_triangle(self, v1, v2, v3, c, fill=False):
+        x1, y1 = v1[0], v1[1]
+        x2, y2 = v2[0], v2[1]
+        x3, y3 = v3[0], v3[1]
+
+        if fill:
+            raise Warning("Not Implemented")
+            pass
+        else:
+            self.draw_line(x1, y1, x2, y2, c)
+            self.draw_line(x1, y1, x3, y3, c)
+            self.draw_line(x2, y2, x3, y3, c)
+
+    @staticmethod
+    def gradient(gradient, x, y, c):
+        """This calculates a colour gradient given the value of x and y and adds it to c"""
+        r, g, b = c.red, c.green, c.blue
+
+        if 'r_grad_y' in gradient:
+            r += 225 * (1 / 32) * y
+
+        if 'g_grad_y' in gradient:
+            g += 225 * (1 / 32) * y
+
+        if 'b_grad_y' in gradient:
+            b += 225 * (1 / 32) * y
+
+        if 'r_grad_x' in gradient:
+            r += 225 * (1 / 64) * x
+
+        if 'g_grad_x' in gradient:
+            g += 225 * (1 / 64) * x
+
+        if 'b_grad_x' in gradient:
+            b += 225 * (1 / 64) * x
+
+        c = r, g, b = int(r if r < 255 else 255), int(g if g < 255 else 255), int(b if b < 255 else 255)
+
+        if r == 0 and g == 0 and b == 0:
+            print(c)
+            raise UserWarning("Invalid gradient: " + gradient +
+                              ". \nUse one or more of the following:\n" +
+                              "r_grad_y, g_grad_y, b_grad_y,\n r_grad_x," +
+                              "g_grad_x, b_grad_x.\n" + "The syntax is: " +
+                              "(rgb colour value)_grad_(x or y direction)"
+                              )
+
+        return c
+
+
 def make_circle(r, x, y, matrix, colour_scheme=None, gradient=None, fill=True):
     return led_matrix_static_objects.Circle(r, x, y, matrix, colour_scheme, gradient, fill)
 
@@ -198,16 +297,8 @@ def make_triangle(p1, p2, p3, matrix, colour_scheme=None, gradient=None, fill=Tr
     return led_matrix_static_objects.Triangle(p1, p2, p3, matrix, colour_scheme, gradient, fill)
 
 
-# env = PWorld(g=-.5)
-#
-# for s in range(10):
-#     env.add_pixel()
-# circle = env.add_circle(pos=Vector2(32, 16), r=3, points=6)
-#
-# env.simulate_led_matrix()
-#
-# while True:
-#     env.update()
+for i in range(10):
+    print(Pen.gradient("r_grad_x", i, i, c=(100, 50, 30)))
 
 
 

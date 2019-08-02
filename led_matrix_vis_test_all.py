@@ -4,6 +4,7 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from rgbmatrix import graphics
 
 
+
 def functions_testing():
     physics_test()
     audio_test()
@@ -41,23 +42,24 @@ def audio_test():
 
 def static_test():
     audio = Jworld.JAudio.Waveform()
-    matrix = audio.Dmatrix
-    rect = Jworld.make_rect(32-10, 16-10, 32+10, 16+10, matrix=matrix)
+    Dmatrix = audio.Dmatrix
+    double_buffer = Dmatrix.CreateFrameCanvas()
+
+    rect = Jworld.make_rect(32-10, 16-10, 32+10, 16+10, matrix=double_buffer)
     
-    rect2 = Jworld.make_rect(32, 16, 32, 16, matrix=matrix, colour_scheme=(225,0,50))
+    rect2 = Jworld.make_rect(32, 16, 32, 16, matrix=double_buffer, colour_scheme=(225,0,50))
 
-    rect3 = Jworld.make_rect(32, 16, 32, 16, matrix=matrix, colour_scheme=(225,0,50))
+    rect3 = Jworld.make_rect(32, 16, 32, 16, matrix=double_buffer, colour_scheme=(225,0,50))
 
-    rect_middle = Jworld.make_rect(32-10, 16-10, 32+10, 16+10, matrix=matrix, colour_scheme=(255,100,0))
+    rect_middle = Jworld.make_rect(32-10, 16-10, 32+10, 16+10, matrix=double_buffer, colour_scheme=(255,100,0))
 
     last_peak = 0
     while True:
         peak = int(audio.update() * -1 * (1/(last_peak+1)))
         p1 = peak/5
         if peak > 15:
-            peak=15
-        
-        
+            peak = 15
+
         rect.update(y1=(16 + peak), y2=(16 - peak), x1=(32 + peak), x2=(32 - peak))
         
         rect2.update(y1=(16 + p1), y2=(16 - p1), x1=(52 + p1), x2=(52 - p1))
@@ -66,16 +68,15 @@ def static_test():
         
         rect_middle.update(y1=(16 + p1/2), y2=(16 - p1/2), x1=(32 + p1/2), x2=(32 - p1/2))
 
-        
         if peak > last_peak:
             last_peak = peak
         if last_peak > .1:
             last_peak = last_peak * 0.99999
         else:
             last_peak = 0
-            
+
+        double_buffer = Dmatrix.SwapOnVSync(double_buffer)
         Jworld.time.sleep(.033333)
-        matrix.Clear()
 
 
 def composite_test():

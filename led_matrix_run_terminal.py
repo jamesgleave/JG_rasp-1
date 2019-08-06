@@ -1,5 +1,5 @@
 import led_matrix_interface as Jworld
-from Displays import audio_visualizer_one, Spectrogram_BouncingBoxes
+from Displays import Visualizer_Staggering, Spectrogram_BouncingBoxes
 
 """This is used to interact with the app.py file. This will run all files activated remotely or """
 

@@ -34,3 +34,7 @@ def run_spectrogram(matrix_length, matrix_height):
 
         Dmatrix.Clear()
 
+
+# Main function
+if __name__ == "__main__":
+    run_spectrogram(Jworld.cols, Jworld.rows)

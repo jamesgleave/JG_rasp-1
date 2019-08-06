@@ -16,9 +16,6 @@ try:
     options.parallel = 1
     options.hardware_mapping = 'adafruit-hat'
 
-    # Dmatrix = RGBMatrix(options=options)
-    # Dmatrix.Clear()
-
 except ImportError:
     print("The package rgbmatrix was not found")
 

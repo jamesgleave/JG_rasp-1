@@ -227,7 +227,8 @@ def run():
     while True:
         pass
         list = a.update()["spectrum"][::8]
+        print_list = []
         for i in list:
-            print("#" * int(i * 100))
-
+            print_list.append((int(10*i)))
+        print(print_list)
 run()

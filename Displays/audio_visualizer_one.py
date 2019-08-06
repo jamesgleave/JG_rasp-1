@@ -2,7 +2,7 @@ import led_matrix_interface as Jworld
 import random
 
 
-def visualizer():
+def run_visualizer(matrix_length, matrix_height):
     audio = Jworld.JAudio.Waveform()
     Dmatrix = audio.Dmatrix
     pen = Jworld.Pen(canvas=Dmatrix)

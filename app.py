@@ -2,6 +2,7 @@ from flask import Flask, request
 import led_matrix_vis_test_all as t
 from twilio.twiml.messaging_response import Message, MessagingResponse
 import webbrowser
+import led_matrix_run_terminal as terminal
 
 # webbrowser.open("https://www.twilio.com/console/phone-numbers/PNc2480db697222fd47d47b60eb6465898#")
 
@@ -58,7 +59,7 @@ sudo python /Users/martingleave/Documents/GitHub/JG_rasp-1/app.py
 https://www.twilio.com/console/phone-numbers/PNc2480db697222fd47d47b60eb6465898#
 """
 
-
+terminal = terminal.RunTerminal()
 app = Flask(__name__)
 resp = MessagingResponse()
 
@@ -67,28 +68,31 @@ resp = MessagingResponse()
 def sms():
     number = request.form['From']
     message_body = request.form['Body']
-    message = message_body.split(" -")
-    parse_sms(message)
+    parse_sms(message_body)
     # t.composite_test()
 
     return str(resp)
 
 
-def parse_sms(m: str):
-    print(m)
+def parse_sms(message: str):
+    print(message)
+    if "-help" in message:
+        resp.message("-\n\n*****************\n"
+                     "Enter any of these commands!\n"
+                     "-run spectrogram,\n"
+                     "-run spectrogram,\n"
+                     "-run spectrogram,\n"
+                     "-run spectrogram,\n"
+                     "-run spectrogram,\n"
+                     "-run spectrogram,\n"
+                     "-text 'Your message'.\n")
 
-    for command in m:
-        if "-help" in command:
-            resp.message("-\n\n*****************\n"
-                         "Enter any of these commands!\n"
-                         "-")
+    if "-run" in message:
+        command = message.split(" ")[1]
+        terminal.run_program(command)
 
-        if "-spectrogram" in command:
-            print("spectrogram")
-
-        if "-text" in command:
-            text = command[7:]
-            print(text)
+    else:
+        terminal.run_program("text")
 
 
 if __name__ == '__main__':

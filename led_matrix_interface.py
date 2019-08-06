@@ -338,6 +338,16 @@ class Image(physics_engine.PhysicsBody):
         if y + img_height > self.m.height or y - img_height < 0:
             self.bounce(2)
 
+    def update(self):
+        self.m.SetImage(self.image, self.position.x, self.position.y)
+        self.update_position()
+        self.dampen()
+        self.check_bounds()
+        if self.gravity:
+            self.apply_gravity()
+
+
+
 
 def make_circle(r, x, y, matrix, colour_scheme=None, gradient=None, fill=True):
     return led_matrix_static_objects.Circle(r, x, y, matrix, colour_scheme, gradient, fill)

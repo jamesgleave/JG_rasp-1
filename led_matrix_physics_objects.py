@@ -7,7 +7,7 @@ From these geometric shapes, any complex shape should be possible to create!
 """
 
 
-from led_matrix_physics import Physics, PhysicalPixel, RandomPhysicalPixel, Vector2, ForceEmitter
+from led_matrix_physics import Physics, PhysicalPixel, RandomPhysicalPixel, Vector2, ForceEmitter, PhysicsBody
 from PIL import Image
 import led_matrix_interface as Jworld
 import numpy as np
@@ -100,44 +100,40 @@ class TriPhysComp:
     pass
 
 
-class CirclePhysSolid:
-    def __init__(self, r, physical_pixel, fill=False, c=(225, 0, 0)):
+class CirclePhysSolid(PhysicsBody):
+    def __init__(self, r, fill=False, c=(225, 0, 0), matrix=None, position=None, environment=None,
+                 mass=np.random.randint(1, 10), velocity=None, led_size=(64, 32), bounciness=np.random.sample(),
+                 gravity_enabled=True):
 
-        self.physical_pixel = physical_pixel
-
-        self.r = r
-        self.position = physical_pixel.position
-
-        self.pen = Jworld.Pen(self.physical_pixel.m)
-        self.c = c
+        super(CirclePhysSolid, self).__init__(position=position, environment=environment, mass=mass, matrix=matrix,
+                                              c=c, velocity=velocity, led_size=led_size, bounciness=bounciness,
+                                              gravity_enabled=gravity_enabled)
 
         self.fill = fill
+        self.r = r
+        self.pen = Jworld.Pen(canvas=self.m)
 
     def update(self):
         self.check_bounds()
         if not self.fill:
-            self.pen.draw_circle(self.physical_pixel.position.x, self.physical_pixel.position.y,
-                                 self.r, c=self.c, fill=False)
+            self.pen.draw_circle(self.position.x, self.position.y,
+                                 self.r, c=self.colour, fill=False)
         else:
-            self.pen.draw_circle(self.physical_pixel.position.x, self.physical_pixel.position.y,
-                                 self.r, c=self.c, fill=True)
+            self.pen.draw_circle(self.position.x, self.position.y,
+                                 self.r, c=self.colour, fill=True)
 
     def check_bounds(self):
         r = self.r
-        pxp = self.physical_pixel.position.x + r
-        pxn = self.physical_pixel.position.x - r
-        pyp = self.physical_pixel.position.y + r
-        pyn = self.physical_pixel.position.y - r
+        pxp = self.position.x + r
+        pxn = self.position.x - r
+        pyp = self.position.y + r
+        pyn = self.position.y - r
 
-        if pxp > self.physical_pixel.width or pxn < 0:
-            self.physical_pixel.bounce(1)
+        if pxp > 64 or pxn < 0:  # TODO replace these values later
+            self.bounce(1)
 
-        if pyp > self.physical_pixel.height or pyn < 0:
-            self.physical_pixel.bounce(2)
-
-    def add_force(self, f):
-        force = Vector2(f.x, f.y)
-        self.physical_pixel.add_force(force)
+        if pyp > 32 or pyn < 0:
+            self.bounce(2)
 
 
 class MatrixSimulator:

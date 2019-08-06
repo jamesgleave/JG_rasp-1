@@ -188,7 +188,7 @@ def audio_and_physics_engine_test():
             for p in world.environment.object_list:
                 x = Jworld.np.random.randint(-20, 20)
                 y = Jworld.np.random.randint(-20, 20)
-                f = Jworld.Vector2(x,y).scalar_mult(peak)
+                f = Jworld.Vector2(x, y).scalar_mult(peak)
 
                 random_vector = Jworld.Vector2.random_vector(f)
                 p.add_force(random_vector)

@@ -169,14 +169,12 @@ class PhysicalPixel:
         new_pos_y = self.position.y + self.velocity.y
 
         if new_pos_x > self.led_size[0] or new_pos_x < 0:
-            """Do nothing"""
             self.bounce(1)
 
         else:
             self.position.x = new_pos_x
 
         if new_pos_y > self.led_size[1] or new_pos_y < 0:
-            """Do nothing"""
             self.bounce(2)
         else:
             self.position.y = new_pos_y

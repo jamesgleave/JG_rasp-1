@@ -6,6 +6,7 @@
       <change beforePath="$PROJECT_DIR$/led_matrix_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/led_matrix_interface.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/led_matrix_physics.py" beforeDir="false" afterPath="$PROJECT_DIR$/led_matrix_physics.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/led_matrix_physics_objects.py" beforeDir="false" afterPath="$PROJECT_DIR$/led_matrix_physics_objects.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/led_matrix_vis_test_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/led_matrix_vis_test_all.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,25 +62,25 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="gitattributes" value="1" />
-          <entry key="py" value="100" />
+          <entry key="py" value="102" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="100" />
+          <entry key="Python" value="102" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="33793" />
+          <entry key="py" value="34050" />
           <entry key="txt" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="11" />
-          <entry key="Python" value="33793" />
+          <entry key="Python" value="34050" />
         </counts>
       </usages-collector>
     </session>
@@ -89,16 +90,32 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/led_matrix_physics_objects.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
+            <state relative-caret-position="243">
+              <caret line="135" column="26" lean-forward="true" selection-start-line="135" selection-start-column="26" selection-end-line="135" selection-end-column="26" />
               <folding>
-                <element signature="e#194#291#0" expanded="true" />
+                <element signature="e#194#304#0" expanded="true" />
+                <element signature="e#373#2129#0" />
                 <element signature="e#2156#2192#0" />
                 <element signature="e#2219#2255#0" />
                 <element signature="e#2281#2317#0" />
+                <element signature="e#2411#3857#0" />
+                <element signature="e#2347#3633#0" />
                 <element signature="e#4870#6314#0" />
-                <marker date="1565131471000" expanded="true" signature="2380:3625" ph="..." />
-                <marker date="1565131471000" expanded="true" signature="3102:3520" ph="..." />
+                <marker date="1565132333000" expanded="true" signature="2406:3757" ph="..." />
+                <marker date="1565132333000" expanded="true" signature="3057:3062" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/led_matrix_vis_test_all.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="191">
+              <caret line="184" column="23" lean-forward="true" selection-start-line="184" selection-start-column="23" selection-end-line="184" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+                <marker date="1565132435000" expanded="true" signature="5046:5706" ph="..." />
               </folding>
             </state>
           </provider>
@@ -107,8 +124,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/led_matrix_physics.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-371">
-              <caret line="142" column="87" selection-start-line="141" selection-start-column="17" selection-end-line="142" selection-end-column="87" />
+            <state relative-caret-position="296">
+              <caret line="171" selection-start-line="171" selection-end-line="171" />
               <folding>
                 <element signature="e#6796#9934#0" />
               </folding>
@@ -116,25 +133,18 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/led_matrix_interface.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="288" column="43" selection-start-line="288" selection-start-column="43" selection-end-line="288" selection-end-column="43" />
+            <state relative-caret-position="253">
+              <caret line="287" column="17" selection-start-line="287" selection-start-column="17" selection-end-line="293" selection-end-column="68" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
                 <element signature="e#520#5634#0" />
-                <element signature="e#9252#9399#0" />
-                <element signature="e#9470#10014#0" />
-                <element signature="e#9150#9238#0" />
-                <element signature="e#9330#9422#0" />
-                <element signature="e#9516#9610#0" />
-                <element signature="e#9702#9794#0" />
-                <marker date="1565131471000" expanded="true" signature="4979:4985" ph="..." />
-                <marker date="1565131471000" expanded="true" signature="5787:11193" ph="..." />
-                <marker date="1565131471000" expanded="true" signature="7971:7980" ph="..." />
-                <marker date="1565131471000" expanded="true" signature="9258:11193" ph="..." />
-                <marker date="1565131471000" expanded="false" signature="11272:11277" ph="..." />
+                <marker date="1565132004000" expanded="true" signature="4979:4985" ph="..." />
+                <marker date="1565132004000" expanded="true" signature="5787:11164" ph="..." />
+                <marker date="1565132004000" expanded="true" signature="7971:7980" ph="..." />
+                <marker date="1565132004000" expanded="true" signature="9258:11164" ph="..." />
               </folding>
             </state>
           </provider>
@@ -195,11 +205,11 @@
         <option value="$PROJECT_DIR$/Displays/Text_Scroller.py" />
         <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/led_matrix_aud_in.py" />
-        <option value="$PROJECT_DIR$/led_matrix_vis_test_all.py" />
         <option value="$PROJECT_DIR$/led_matrix_image.py" />
-        <option value="$PROJECT_DIR$/led_matrix_physics.py" />
-        <option value="$PROJECT_DIR$/led_matrix_physics_objects.py" />
         <option value="$PROJECT_DIR$/led_matrix_interface.py" />
+        <option value="$PROJECT_DIR$/led_matrix_physics_objects.py" />
+        <option value="$PROJECT_DIR$/led_matrix_physics.py" />
+        <option value="$PROJECT_DIR$/led_matrix_vis_test_all.py" />
       </list>
     </option>
   </component>
@@ -780,7 +790,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565128303939</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Added util">
+      <created>1565131481852</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1565131481852</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1058,25 +1075,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/led_matrix_static_objects.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
-          <folding>
-            <element signature="e#118#1162#0" />
-            <element signature="e#1188#3052#0" />
-            <element signature="e#3080#5761#0" />
-            <element signature="e#5786#8386#0" />
-            <element signature="e#8412#9662#0" />
-            <element signature="e#8510#8719#0" />
-            <element signature="e#8750#8951#0" />
-            <element signature="e#9053#9521#0" />
-            <element signature="e#9692#10511#0" />
-            <element signature="e#10563#10668#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/led_matrix_image.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1106,61 +1104,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/led_matrix_vis_test_all.py">
+    <entry file="file://$PROJECT_DIR$/led_matrix_static_objects.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="191" lean-forward="true" selection-start-line="191" selection-end-line="191" />
+        <state relative-caret-position="915">
+          <caret line="61" column="18" lean-forward="true" selection-start-line="61" selection-start-column="18" selection-end-line="61" selection-end-column="18" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
-            <marker date="1565128264000" expanded="true" signature="5046:5705" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/led_matrix_physics.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-371">
-          <caret line="142" column="87" selection-start-line="141" selection-start-column="17" selection-end-line="142" selection-end-column="87" />
-          <folding>
-            <element signature="e#6796#9934#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/led_matrix_physics_objects.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
-          <folding>
-            <element signature="e#194#291#0" expanded="true" />
-            <element signature="e#2156#2192#0" />
-            <element signature="e#2219#2255#0" />
-            <element signature="e#2281#2317#0" />
-            <element signature="e#4870#6314#0" />
-            <marker date="1565131471000" expanded="true" signature="2380:3625" ph="..." />
-            <marker date="1565131471000" expanded="true" signature="3102:3520" ph="..." />
+            <element signature="e#3080#5761#0" />
+            <element signature="e#5786#8386#0" />
+            <element signature="e#8412#9662#0" />
+            <element signature="e#8510#8719#0" />
+            <element signature="e#8750#8951#0" />
+            <element signature="e#9053#9521#0" />
+            <element signature="e#9692#10511#0" />
+            <element signature="e#10563#10668#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/led_matrix_interface.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="288" column="43" selection-start-line="288" selection-start-column="43" selection-end-line="288" selection-end-column="43" />
+        <state relative-caret-position="253">
+          <caret line="287" column="17" selection-start-line="287" selection-start-column="17" selection-end-line="293" selection-end-column="68" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
             <element signature="e#520#5634#0" />
-            <element signature="e#9252#9399#0" />
-            <element signature="e#9470#10014#0" />
-            <element signature="e#9150#9238#0" />
-            <element signature="e#9330#9422#0" />
-            <element signature="e#9516#9610#0" />
-            <element signature="e#9702#9794#0" />
-            <marker date="1565131471000" expanded="true" signature="4979:4985" ph="..." />
-            <marker date="1565131471000" expanded="true" signature="5787:11193" ph="..." />
-            <marker date="1565131471000" expanded="true" signature="7971:7980" ph="..." />
-            <marker date="1565131471000" expanded="true" signature="9258:11193" ph="..." />
-            <marker date="1565131471000" expanded="false" signature="11272:11277" ph="..." />
+            <marker date="1565132004000" expanded="true" signature="4979:4985" ph="..." />
+            <marker date="1565132004000" expanded="true" signature="5787:11164" ph="..." />
+            <marker date="1565132004000" expanded="true" signature="7971:7980" ph="..." />
+            <marker date="1565132004000" expanded="true" signature="9258:11164" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/led_matrix_physics_objects.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="135" column="26" lean-forward="true" selection-start-line="135" selection-start-column="26" selection-end-line="135" selection-end-column="26" />
+          <folding>
+            <element signature="e#194#304#0" expanded="true" />
+            <element signature="e#373#2129#0" />
+            <element signature="e#2156#2192#0" />
+            <element signature="e#2219#2255#0" />
+            <element signature="e#2281#2317#0" />
+            <element signature="e#2411#3857#0" />
+            <element signature="e#2347#3633#0" />
+            <element signature="e#4870#6314#0" />
+            <marker date="1565132333000" expanded="true" signature="2406:3757" ph="..." />
+            <marker date="1565132333000" expanded="true" signature="3057:3062" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/led_matrix_physics.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="171" selection-start-line="171" selection-end-line="171" />
+          <folding>
+            <element signature="e#6796#9934#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/led_matrix_vis_test_all.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="184" column="23" lean-forward="true" selection-start-line="184" selection-start-column="23" selection-end-line="184" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+            <marker date="1565132435000" expanded="true" signature="5046:5706" ph="..." />
           </folding>
         </state>
       </provider>

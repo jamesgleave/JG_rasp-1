@@ -142,7 +142,7 @@ class Waveform:
             input=True,
         )
         
-        # self.Dmatrix = RGBMatrix(options=options)
+        # self.Dmatrix = RGBMatrix(Jworld.options=options)
 
         print('stream started')
 

@@ -1,4 +1,5 @@
 import led_matrix_physics as physics_engine
+import led_matrix_physics_objects as physical_objects
 from led_matrix_physics import Vector2
 import led_matrix_static_objects
 import led_matrix_aud_in as JAudio

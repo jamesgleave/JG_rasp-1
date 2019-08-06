@@ -69,7 +69,6 @@ def sms():
     number = request.form['From']
     message_body = request.form['Body']
     parse_sms(message_body)
-    # t.composite_test()
 
     return str(resp)
 
@@ -87,12 +86,12 @@ def parse_sms(message: str):
                      "-run spectrogram,\n"
                      "-text 'Your message'.\n")
 
-    if "-run" in message:
+    elif "-run" in message:
         command = message.split(" ")[1]
         terminal.run_program(command)
 
     else:
-        terminal.run_program("text")
+        terminal.run_program("text", message=message)
 
 
 if __name__ == '__main__':

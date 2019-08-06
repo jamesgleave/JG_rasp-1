@@ -9,6 +9,7 @@ From these geometric shapes, any complex shape should be possible to create!
 
 from led_matrix_physics import Physics, PhysicalPixel, RandomPhysicalPixel, Vector2, ForceEmitter
 from PIL import Image
+import led_matrix_interface as Jworld
 import numpy as np
 import time
 
@@ -99,6 +100,46 @@ class TriPhysComp:
     pass
 
 
+class CirclePhysSolid:
+    def __init__(self, r, physical_pixel, fill=False, c=(225,0,0)):
+
+        self.physical_pixel = physical_pixel
+
+        self.r = r
+        self.position = physical_pixel.position
+
+        self.pen = Jworld.Pen(self.physical_pixel.m)
+        self.c = c
+
+        self.fill = fill
+
+    def update(self):
+        self.check_bounds()
+        if not self.fill:
+            self.pen.draw_circle(self.physical_pixel.position.x, self.physical_pixel.position.y,
+                                 self.r, c=self.c, fill=False)
+        else:
+            self.pen.draw_circle(self.physical_pixel.position.x, self.physical_pixel.position.y,
+                                 self.r, c=self.c, fill=True)
+
+    def check_bounds(self):
+        r = self.r
+        pxp = self.physical_pixel.position.x + r
+        pxn = self.physical_pixel.position.x - r
+        pyp = self.physical_pixel.position.y + r
+        pyn = self.physical_pixel.position.y - r
+
+        if pxp > self.physical_pixel.width or pxn < 0:
+            self.physical_pixel.velocity.x *= -1
+
+        if pyp > self.physical_pixel.height or pyn < 0:
+            self.physical_pixel.velocity.y *= -1
+
+    def add_force(self, f):
+        force = Vector2(f.x, f.y)
+        self.physical_pixel.add_force(force)
+
+
 class MatrixSimulator:
     def __init__(self, obj_list, matrix_shape=(32, 64)):
         self.r = matrix_shape[0]
@@ -167,7 +208,7 @@ class PhysicalImage(PhysicalPixel):
 
         if self.position.y - self.image.height >= self.led_size[1] or self.position.y <= 0:
             self.bounce(2)
-        
+
     def update_image_position(self):
         self.m.SetImage(self.image, self.position.x, self.position.y)
         self.update()

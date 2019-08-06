@@ -160,26 +160,44 @@ def draw_image_test():
         matrix.SetImage(image, n, n)
         Jworld.time.sleep(0.05)
 
-def text_test(text):
-    matrix = RGBMatrix(options=Jworld.options)
-    offscreen_canvas = matrix.CreateFrameCanvas()
-    font = graphics.Font()
-    font.LoadFont("../../../fonts/7x13.bdf")
-    textColor = graphics.Color(255, 255, 0)
-    pos = offscreen_canvas.width
-    my_text = text
 
+def circle_solid_test():
+    v = Jworld.physics_engine.Vector2
+    env = Jworld.PWorld()
+    circle_pos = env.add_pixel(position=v(32, 16))
+    circle = Jworld.physical_objects.CirclePhysSolid(v(32, 16), 5, circle_pos)
+
+    circle.add_force(v(10, 0))
     while True:
-        offscreen_canvas.Clear()
-        len = graphics.DrawText(offscreen_canvas, font, pos, 10, textColor, my_text)
-        pos -= 1
-        if (pos + len < 0):
-            pos = offscreen_canvas.width
+        env.update()
 
-        time.sleep(0.05)
-        offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+
+def audio_and_physics_engine_test():
+    audio = Jworld.JAudio.AudioStream()
+    world = Jworld.PWorld(matrix=audio.Dmatrix)
+
+    for _ in range(25):
+        world.add_pixel()
+
+    for time in range(1000):
+        peak = audio.update()["peak"]
+        world.update()
+        Jworld.time.sleep(0.0166666)
+
+        if peak > 10:
+            for p in world.environment.object_list:
+                x = Jworld.np.random.randint(-20, 20)
+                y = Jworld.np.random.randint(-20, 20)
+                f = Jworld.Vector2(x,y).scalar_mult(peak)
+
+                random_vector = Jworld.Vector2.random_vector(f)
+                p.add_force(random_vector)
+
+    world.empty()
+
+    del audio, world
 
 #physics_test()
-audio_test()
-# static_test()
-
+#audio_test()
+#static_test()
+circle_solid_test()

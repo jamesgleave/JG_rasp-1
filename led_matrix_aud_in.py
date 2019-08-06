@@ -152,16 +152,18 @@ class Waveform:
 class AudioStream:
     """
     Audio gets both the fft and waveform
-    simultaneously
+    simultaneously. The update function returns
+    a dictionary of "peak"s and a list of
+    "spectrum" values.
     """
     def __init__(self):
         self.spectrum = []
         self.peak = 0
         self.stream = None
         self.Dmatrix = None
-        self.start()
+        self.__start()
 
-    def start(self):
+    def __start(self):
         # pyaudio class instance
         p = pyaudio.PyAudio()
 
@@ -188,10 +190,11 @@ class AudioStream:
         self.peak = int(500 * peak / 2 ** 16)
 
         # convert data to integers, make np array, then offset it by 127
-        data_int = struct.unpack(str(2 * CHUNK) + 'B', data)
+        # data_int = struct.unpack(str(2 * CHUNK) + 'B', data)
+        # print(len(data))
 
         # compute FFT and update line
-        yf = fft(data_int)
+        yf = fft(data)
         freq = (np.abs(yf[0:CHUNK]) / (128 * CHUNK))
 
         split_number = 0  # determines the amount of different frequencies we average
@@ -199,16 +202,16 @@ class AudioStream:
 
         for n in freq:
             ave_list.append(n)
-            if split_number % 64 == 0:
+            if split_number % 16 == 0:
                 specific_spectrum_value = np.sum(ave_list, axis=0)
                 spectrum_values.append(specific_spectrum_value)
 
                 self.spectrum = spectrum_values[:]
 
                 ave_list = []
-                split_number += 1
+            split_number += 1
         clear(spectrum_values)
-        return self.peak, self.spectrum
+        return {"peak": self.peak, "spectrum": self.spectrum}
 
 
 def sigmoid(x):
@@ -219,4 +222,12 @@ def clear(list):
     del list[:]
 
 
+def run():
+    a = AudioStream()
+    while True:
+        pass
+        list = a.update()["spectrum"][::8]
+        for i in list:
+            print("#" * int(i * 100))
 
+run()

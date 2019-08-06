@@ -4,7 +4,7 @@ import led_matrix_static_objects
 import led_matrix_aud_in as JAudio
 import numpy as np
 import time
-from rgbmatrix import graphics
+# from rgbmatrix import graphics
 
 
 try:
@@ -296,9 +296,6 @@ def make_line(point_1, point_2, matrix, colour_scheme=None, gradient=None, fill=
 def make_triangle(p1, p2, p3, matrix, colour_scheme=None, gradient=None, fill=True):
     return led_matrix_static_objects.Triangle(p1, p2, p3, matrix, colour_scheme, gradient, fill)
 
-
-for i in range(10):
-    print(Pen.gradient("r_grad_x", i, i, c=(100, 50, 30)))
 
 
 

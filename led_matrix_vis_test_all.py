@@ -1,7 +1,7 @@
 import led_matrix_interface as Jworld
 from PIL import Image, ImageDraw
-from rgbmatrix import RGBMatrix, RGBMatrixOptions
-from rgbmatrix import graphics
+# from rgbmatrix import RGBMatrix, RGBMatrixOptions
+# from rgbmatrix import graphics
 
 
 def functions_testing():
@@ -31,10 +31,9 @@ def physics_test():
 
 
 def audio_test():
-    audio_in = Jworld.JAudio.Waveform()
+    audio_in = Jworld.JAudio.AudioStream()
     for time in range(600):
-        audio_in.update()
-        peaks = audio_in.peak
+        peaks = audio_in.update()["peak"]
         print(peaks)
         Jworld.time.sleep(0.0166666)
 
@@ -181,5 +180,6 @@ def text_test(text):
         offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
 #physics_test()
-static_test()
+audio_test()
+# static_test()
 

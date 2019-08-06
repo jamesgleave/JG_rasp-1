@@ -4,8 +4,10 @@ import led_matrix_interface as Jworld
 def run_text_scroller(text="hello world"):
     pen = Jworld.Pen(canvas=None)
     matrix = pen.matrix
+
     font = Jworld.graphics.Font()
     font.LoadFont("../../../fonts/7x13.bdf")
+
     textColor = Jworld.graphics.Color(255, 255, 0)
     pos = matrix.width
     my_text = text

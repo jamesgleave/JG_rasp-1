@@ -12,7 +12,7 @@ class RunTerminal:
         if program == "BouncingBoxes":
             Spectrogram_BouncingBoxes.run_spectrogram(cols, rows)
         elif program == "Staggering":
-            audio_visualizer_one.run_visualizer(cols, rows)
+            Visualizer_Staggering.run_visualizer(cols, rows)
         elif program == "text":
             pass
             # TODO implement sliding text, static text, and physical text.

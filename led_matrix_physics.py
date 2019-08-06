@@ -197,14 +197,14 @@ class PhysicalPixel:
 
         if self.gravity:
             self.apply_gravity()
-    
+
     def check_bounds(self):
         if self.position.x >= self.led_size[0] or self.position.x <= 0:
             self.bounce(1)
 
         if self.position.y >= self.led_size[1] or self.position.y <= 0:
             self.bounce(2)
-            
+
     def bounce(self, i):
         # V new = b * ( -2*(V dot N)*N + V )
 
@@ -242,6 +242,105 @@ class PhysicalPixel:
         y = self.position.y
 
         mass = self.mass/1000
+        env = self.environment
+        matrix = self.m
+
+        return PhysicalPixel(position=Vector2(x, y), mass=mass,
+                             environment=env, matrix=matrix)
+
+
+class PhysicsBody:
+    def __init__(self, position, environment, mass=np.random.randint(1, 10), matrix=None, c=(0, 100, 0), velocity=None,
+                 led_size=(64, 32), bounciness=np.random.sample(), gravity_enabled=True):
+
+        self.position = position
+        self.mass = mass * 1000
+
+        if velocity is None:
+            velocity = Vector2(0, 0)
+
+        self.velocity = velocity
+
+        self.momentum = None
+        self.bounciness = bounciness
+
+        self.colour = c
+        self.environment = environment
+        self.m = matrix
+        self.led_size = led_size
+        self.gravity = gravity_enabled
+
+        self.update()
+
+    def add_force(self, f):
+        self.velocity.add(Vector2.scale(f, (1 / self.mass)))
+
+    def update_position(self):
+        new_pos_x = self.position.x + self.velocity.x
+        new_pos_y = self.position.y + self.velocity.y
+
+        if new_pos_x > self.led_size[0] or new_pos_x < 0:
+            self.bounce(1)
+        else:
+            self.position.x = new_pos_x
+
+        if new_pos_y > self.led_size[1] or new_pos_y < 0:
+            self.bounce(2)
+        else:
+            self.position.y = new_pos_y
+
+    def update(self):
+        self.update_position()
+        self.dampen()
+        self.check_bounds()
+
+        if self.gravity:
+            self.apply_gravity()
+
+    def check_bounds(self):
+        if self.position.x >= self.led_size[0] or self.position.x <= 0:
+            self.bounce(1)
+
+        if self.position.y >= self.led_size[1] or self.position.y <= 0:
+            self.bounce(2)
+
+    def bounce(self, i):
+        # V new = b * ( -2*(V dot N)*N + V )
+
+        # V new = self.bounciness * ( -2 * N * (self.velocity dot N) + self.velocity )
+
+        # R = 2*(V dot N) * N - V
+        # dot = Vector2.dot(self.velocity, self.velocity.normalize())
+        # dot *= 2
+        # prod = Vector2.scale(self.velocity.normalize(), dot)
+        #
+        # prod.negate(self.velocity)
+        #
+        # self.velocity = prod
+
+        if i == 1:
+            self.velocity.x *= -1
+            self.velocity.scalar_mult(self.bounciness + (self.mass / 50000))
+        else:
+            self.velocity.y *= -1
+            self.velocity.scalar_mult(self.bounciness + (self.mass / 50000))
+
+    def dampen(self):
+        f = self.environment.air_resistance
+
+        self.momentum = Vector2.scale(self.velocity, self.mass)
+
+        self.velocity.x = self.velocity.x * f
+        self.velocity.y = self.velocity.y * f
+
+    def apply_gravity(self):
+        self.velocity.y -= self.environment.gravity
+
+    def clone(self):
+        x = self.position.x
+        y = self.position.y
+
+        mass = self.mass / 1000
         env = self.environment
         matrix = self.m
 

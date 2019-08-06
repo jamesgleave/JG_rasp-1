@@ -5,6 +5,7 @@ import led_matrix_static_objects
 import led_matrix_aud_in as JAudio
 import numpy as np
 import time
+from PIL import Image as pimage
 
 try:
     from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
@@ -177,6 +178,7 @@ class PWorld:
 
 
 class Pen:
+    """Allows for shapes to be drawn on the matrix"""
     def __init__(self, canvas):
         if canvas is not None:
             self.matrix = canvas
@@ -274,6 +276,67 @@ class Pen:
                               )
 
         return c
+
+
+class Image(physics_engine.PhysicsBody):
+    """
+
+    This object allows for image presentation on the matrix. This object inherits all physics aspects from physics
+    body to allow for physics to be exacted on images
+
+    """
+    def __init__(self, image_path, canvas=None, position=None, environment=None,
+                 mass=np.random.randint(1, 10), c=(0, 100, 0), velocity=None,
+                 led_size=(64, 32), bounciness=np.random.sample(), gravity_enabled=False, image_size=None):
+
+        super(Image, self).__init__(position=position, environment=environment, mass=mass, matrix=canvas,
+                                    c=c, velocity=velocity, led_size=led_size, bounciness=bounciness,
+                                    gravity_enabled=gravity_enabled)
+
+        self.image = pimage.open(image_path)
+
+        if image_size is not None:
+            self.image_size = image_size
+        else:
+            self.image_size = (self.m.width, self.m.height)
+
+    def show_image(self):
+        # Make image fit our screen.
+        self.image.thumbnail(self.image_size, pimage.ANTIALIAS)
+        self.m.SetImage(self.image.convert('RGB'))
+
+    def scroll_image(self, speed_x=1, speed_y=0):
+        self.image.resize((self.m.width, self.m.height), pimage.ANTIALIAS)
+
+        double_buffer = self.m.CreateFrameCanvas()
+        img_width, img_height = self.image.size
+
+        # let's scroll
+        xpos = 0
+        ypos = 0
+        while True:
+            xpos += speed_x
+            ypos += speed_y
+            if xpos > img_width:
+                xpos = 0
+
+            if ypos > img_width:
+                ypos = 0
+
+            double_buffer.SetImage(self.image, -xpos, -ypos)
+            double_buffer.SetImage(self.image, -xpos + img_width, -ypos)
+
+            double_buffer = self.m.SwapOnVSync(double_buffer)
+            time.sleep(0.01)
+
+    def check_bounds(self):
+        img_width, img_height = self.image.size
+        x, y = self.position.x, self.position.y
+
+        if x + img_width > self.m.width or x - img_width < 0:
+            self.bounce(1)
+        if y + img_height > self.m.height or y - img_height < 0:
+            self.bounce(2)
 
 
 def make_circle(r, x, y, matrix, colour_scheme=None, gradient=None, fill=True):

@@ -101,7 +101,7 @@ class TriPhysComp:
 
 
 class CirclePhysSolid:
-    def __init__(self, r, physical_pixel, fill=False, c=(225,0,0)):
+    def __init__(self, r, physical_pixel, fill=False, c=(225, 0, 0)):
 
         self.physical_pixel = physical_pixel
 
@@ -130,10 +130,10 @@ class CirclePhysSolid:
         pyn = self.physical_pixel.position.y - r
 
         if pxp > self.physical_pixel.width or pxn < 0:
-            self.physical_pixel.velocity.x *= -1
+            self.physical_pixel.bounce(1)
 
         if pyp > self.physical_pixel.height or pyn < 0:
-            self.physical_pixel.velocity.y *= -1
+            self.physical_pixel.bounce(2)
 
     def add_force(self, f):
         force = Vector2(f.x, f.y)
@@ -185,33 +185,6 @@ class MatrixSimulator:
                         self.matrix[r][c] = "- "
 
         self.print_matrix()
-
-
-class PhysicalImage(PhysicalPixel):
-    def __init__(self, position, environment, image, mass=np.random.randint(1,10), matrix=None, c=(0, 100, 0), velocity=None,
-                 led_size=(64, 32), bounciness=np.random.sample(), gravity_enabled=True):
-
-        super(PhysicalImage, self).__init__(position=position, environment=environment, mass=mass, matrix=matrix,
-                                            c=c, velocity=velocity, led_size=led_size, bounciness=bounciness,
-                                            gravity_enabled=gravity_enabled)
-        self.image = Image.open(image)
-
-    def check_bounds(self):
-        if self.position.x >= self.led_size[0] or self.position.x <= 0:
-            self.bounce(1)
-
-        if self.position.x + self.image.width >= self.led_size[0] or self.position.x <= 0:
-            self.bounce(1)
-
-        if self.position.y >= self.led_size[1] or self.position.y <= 0:
-            self.bounce(2)
-
-        if self.position.y - self.image.height >= self.led_size[1] or self.position.y <= 0:
-            self.bounce(2)
-
-    def update_image_position(self):
-        self.m.SetImage(self.image, self.position.x, self.position.y)
-        self.update()
 
 
 def frame_rate_test(fr=1000):

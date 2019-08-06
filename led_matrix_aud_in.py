@@ -31,6 +31,7 @@ import numpy as np
 from scipy.fftpack import fft
 import time
 import math
+import led_matrix_interface as Jworld
 
 # constants
 CHUNK = 1024         # samples per frame
@@ -177,7 +178,7 @@ class AudioStream:
             input=True,
         )
 
-        # self.Dmatrix = RGBMatrix(options=options)
+        # self.Dmatrix = RGBMatrix(options=Jworld.options)
 
         print('stream started')
 
@@ -231,4 +232,3 @@ def run():
         for i in list:
             print_list.append((int(10*i)))
         print(print_list)
-run()

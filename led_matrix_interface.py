@@ -4,11 +4,9 @@ import led_matrix_static_objects
 import led_matrix_aud_in as JAudio
 import numpy as np
 import time
-# from rgbmatrix import graphics
-
 
 try:
-    from rgbmatrix import RGBMatrix, RGBMatrixOptions
+    from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
     options = RGBMatrixOptions()
     options.rows = 32
     options.cols = 64
@@ -179,7 +177,10 @@ class PWorld:
 
 class Pen:
     def __init__(self, canvas):
-        self.matrix = canvas
+        if canvas is not None:
+            self.matrix = canvas
+        else:
+            self.matrix = RGBMatrix(options=options)
 
     def draw_line(self, x1, y1, x2, y2, c):
 

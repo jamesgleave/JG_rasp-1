@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9c86da6-4a34-49a9-9716-3a44c3e45d46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/led_matrix_animator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/martingleave.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/martingleave.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -106,8 +104,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/led_matrix_game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6">
-              <caret line="1" column="26" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
+            <state relative-caret-position="60">
+              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
                 <marker date="1565212643000" expanded="true" signature="115:1012" ph="..." />
@@ -793,7 +791,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565132453708</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Added util">
+      <created>1565213369418</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1565213369419</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -827,7 +832,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="32" y="24" width="1440" height="873" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49597424" visible="true" weight="0.21316166" />
       <window_info id="Structure" order="1" sideWeight="0.50402576" side_tool="true" weight="0.20171674" />
@@ -1195,8 +1199,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/led_matrix_game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6">
-          <caret line="1" column="26" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
+        <state relative-caret-position="60">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
             <marker date="1565212643000" expanded="true" signature="115:1012" ph="..." />

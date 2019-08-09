@@ -178,7 +178,9 @@ class PWorld:
 
 
 class Pen:
-    """Allows for shapes to be drawn on the matrix"""
+    """Allows for shapes to be drawn on the matrix
+    @:param canvas (rgb matrix) can be left none, if this is done, Pen will create a new matrix object"""
+
     def __init__(self, canvas):
         if canvas is not None:
             self.matrix = canvas

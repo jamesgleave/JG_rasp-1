@@ -188,7 +188,8 @@ class Pen:
             self.matrix = RGBMatrix(options=options)
 
     def draw_line(self, x1, y1, x2, y2, c):
-
+        """Allows for shapes to be drawn on the matrix
+        @:param canvas (rgb matrix) can be left none, if this is done, Pen will create a new matrix object"""
         if not isinstance(c, graphics.Color):
             c = graphics.Color(c[0], c[1], c[2])
 

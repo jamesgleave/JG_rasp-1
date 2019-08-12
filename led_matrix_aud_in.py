@@ -115,6 +115,8 @@ class Spectrogram:
 
 
 class Waveform:
+    """From audio input, this returns the peaks in waveform
+        @:param canvas (rgb matrix) can be left none, if this is done, Pen will create a new matrix object"""
     def __init__(self):
         self.Dmatrix = None
         self.peak = 0
@@ -143,6 +145,44 @@ class Waveform:
             input=True,
         )
         
+        # self.Dmatrix = RGBMatrix(Jworld.options=options)
+
+        print('stream started')
+
+    def terminate(self, p):
+        p.terminate()
+
+
+class WaveData:
+    """This returns an int representation of binary audio input.
+            @:param canvas (rgb matrix) can be left none, if this is done, Pen will create a new matrix object"""
+    def __init__(self):
+        self.Dmatrix = None
+        self.peak = 0
+        self.stream = None
+        self.__start()
+
+    def update(self):
+        data = np.fromstring(self.stream.read(CHUNK, exception_on_overflow=False), dtype=np.int16)
+        peak = np.average(np.abs(data)) * 2
+        self.peak = int(500 * peak / 2 ** 16)
+
+        return self.peak
+
+    def __start(self):
+        # pyaudio class instance
+        p = pyaudio.PyAudio()
+
+        # stream object to get data from microphone
+        self.stream = p.open(
+            format=FORMAT,
+            channels=CHANNELS,
+            rate=RATE,
+            frames_per_buffer=CHUNK,
+            input_device_index=0,
+            input=True,
+        )
+
         # self.Dmatrix = RGBMatrix(Jworld.options=options)
 
         print('stream started')

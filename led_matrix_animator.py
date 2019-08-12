@@ -38,3 +38,6 @@ class Animator:
 
     def animate(self, animation_name):
         return self.animations.get(animation_name).animate
+
+a = Animator()
+

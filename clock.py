@@ -1,6 +1,6 @@
 import datetime
 import time
-
+import math
 
 class Time:
     def __init__(self):
@@ -108,6 +108,7 @@ class Clock(Time):
         min_per_day = 1440
 
     def calculate_brightness(self):
+        # TODO make a parabolic function for this that is low between 11 and 8:00
         pass
 
 t = Clock()

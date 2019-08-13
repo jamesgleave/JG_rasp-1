@@ -85,9 +85,23 @@ class Clock(Time):
         colour - the colour of the clock
         font - the font of the clock
         """
-        if self.seconds_since_instantiation % 60 == 0:
-            self.calculate_brightness()
-            self.matrix.brightness = self.brightness
+        font = graphics.Font()
+        font.LoadFont(font_path)
+        textColor = graphics.Color(colour[0], colour[1], colour[2])
+        pos = 0
+        my_text = self.get_time()[0]
+        self.brightness = 255
+
+        while True:
+            self.matrix.Clear()
+            graphics.DrawText(self.matrix, font, pos, 10, textColor, my_text)
+            my_text = self.get_time()
+            self.sleep_second()
+
+            if self.seconds_since_instantiation % 60 == 0:
+                self.calculate_brightness()
+                self.matrix.brightness = self.brightness
+
         pass
 
     def classic_colourshift(self, brightness, colour, font_path="../../../fonts/7x13.bdf"):
@@ -120,10 +134,10 @@ class Clock(Time):
         # TODO make a circle function for this that is low between 11 and 8:00
         hour = int(self.hour)
         if hour > 0:
-            brightness_scalar = 0.999
+            brightness_scalar = 0.99
             self.brightness *= brightness_scalar
         if hour < 8:
-            brightness_scalar = 1.1
+            brightness_scalar = 1.11
             self.brightness *= brightness_scalar
 
         # clamp(brightness_scalar, 10, self.max_brightness)
@@ -132,8 +146,7 @@ class Clock(Time):
 t = Clock()
 print(t.get_time())
 h = 0
-for i in range(43200):
-    h = t.test(h)
+for i in range(720):
     print(t.calculate_brightness())
     t.get_time()
     t.time_colour_mapping((100, 0, 200))

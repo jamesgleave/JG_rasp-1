@@ -21,7 +21,9 @@ class Time:
             self.seconds_since_instantiation = 0
 
         self.formatted_time = self.hour+":"+self.minute+":"+self.second
-        return self.formatted_time
+        return datetime.datetime.now().ctime()[11:20],\
+               datetime.datetime.now().ctime()[:11], \
+               datetime.datetime.now().ctime()[20:]
 
     @staticmethod
     def sleep_second():
@@ -46,6 +48,9 @@ class Clock(Time):
         super(Clock, self).__init__()
         self.display = display_type
         self.matrix = matrix
+        # self.max_brightness = self.matrix.brightness
+        self.max_brightness = 100
+        self.brightness = 255
 
     def classic(self, brightness, colour, font_path="../../../fonts/7x13.bdf"):
         """
@@ -60,9 +65,10 @@ class Clock(Time):
         font.LoadFont(font_path)
         textColor = graphics.Color(colour[0], colour[1], colour[2])
         pos = 0
-        my_text = self.get_time()
+        my_text = self.get_time()[0]
 
-        self.matrix.brightness = brightness
+        self.brightness = brightness
+        self.matrix.brightness = self.brightness
 
         while True:
             self.matrix.Clear()
@@ -79,6 +85,9 @@ class Clock(Time):
         colour - the colour of the clock
         font - the font of the clock
         """
+        if self.seconds_since_instantiation % 60 == 0:
+            self.calculate_brightness()
+            self.matrix.brightness = self.brightness
         pass
 
     def classic_colourshift(self, brightness, colour, font_path="../../../fonts/7x13.bdf"):
@@ -103,19 +112,29 @@ class Clock(Time):
         """
         pass
 
-    def time_colour_mapping(self, initial_colour):
+    def time_colour_mapping(self, colour):
         minutes_since_instantiation = self.seconds_since_instantiation % 60
         min_per_day = 1440
 
     def calculate_brightness(self):
-        # TODO make a parabolic function for this that is low between 11 and 8:00
-        pass
+        # TODO make a circle function for this that is low between 11 and 8:00
+        hour = int(self.hour)
+        if hour > 0:
+            brightness_scalar = 0.999
+            self.brightness *= brightness_scalar
+        if hour < 8:
+            brightness_scalar = 1.1
+            self.brightness *= brightness_scalar
+
+        # clamp(brightness_scalar, 10, self.max_brightness)
+        return self.brightness, self.hour
 
 t = Clock()
 print(t.get_time())
 h = 0
-for i in range(1000000):
+for i in range(43200):
     h = t.test(h)
+    print(t.calculate_brightness())
     t.get_time()
     t.time_colour_mapping((100, 0, 200))
     if t.seconds_since_instantiation == 0:

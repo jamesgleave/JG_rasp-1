@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9c86da6-4a34-49a9-9716-3a44c3e45d46" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/led_matrix_animator.py" beforeDir="false" afterPath="$PROJECT_DIR$/led_matrix_animator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/led_matrix_aud_in.py" beforeDir="false" afterPath="$PROJECT_DIR$/led_matrix_aud_in.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -109,7 +107,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/led_matrix_interface.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-2782">
@@ -121,14 +119,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/led_matrix_aud_in.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+            <state relative-caret-position="-40">
+              <caret line="34" selection-start-line="34" selection-end-line="34" />
               <folding>
                 <element signature="e#602#616#0" expanded="true" />
-                <marker date="1565564494000" expanded="true" signature="5776:5777" ph="..." />
+                <marker date="1565737253000" expanded="true" signature="5768:5769" ph="..." />
               </folding>
             </state>
           </provider>
@@ -251,8 +249,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="height" value="873" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -267,16 +266,6 @@
             <path>
               <item name="JG_rasp-1" type="b2602c69:ProjectViewProjectNode" />
               <item name="JG_rasp-1" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="JG_rasp-1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="JG_rasp-1" type="462c0819:PsiDirectoryNode" />
-              <item name="Assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="JG_rasp-1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="JG_rasp-1" type="462c0819:PsiDirectoryNode" />
-              <item name="Math" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -761,7 +750,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565392573052</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Added util">
+      <created>1565629722457</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1565629722457</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1045,6 +1041,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Displays/Spectrogram_BouncingBoxes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/led_matrix_physics.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
@@ -1059,33 +1065,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Displays/Spectrogram_BouncingBoxes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/led_matrix_aud_in.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
-          <folding>
-            <element signature="e#602#616#0" expanded="true" />
-            <marker date="1565564494000" expanded="true" signature="5776:5777" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/led_matrix_interface.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2782">
           <caret column="43" selection-start-column="43" selection-end-column="43" />
           <folding>
             <marker date="1565385942000" expanded="true" signature="4979:4985" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/led_matrix_aud_in.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-40">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+          <folding>
+            <element signature="e#602#616#0" expanded="true" />
+            <marker date="1565737253000" expanded="true" signature="5768:5769" ph="..." />
           </folding>
         </state>
       </provider>

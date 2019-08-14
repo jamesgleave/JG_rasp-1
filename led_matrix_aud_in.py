@@ -32,7 +32,7 @@ from scipy.fftpack import fft
 import time
 import math
 import led_matrix_interface as Jworld
-math.log
+
 
 # constants
 CHUNK = 1024         # samples per frame

@@ -215,7 +215,7 @@ class Pen:
         if not isinstance(c, graphics.Color):
             c = graphics.Color(c[0], c[1], c[2])
 
-        graphics.DrawText(self.matrix, font, x, y, c, text)
+        return graphics.DrawText(self.matrix, font, x, y, c, text)
 
     def draw_rect(self, x1, y1, x2, y2, c, fill=False, gradient=None):
         if fill:

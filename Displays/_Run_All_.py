@@ -11,4 +11,4 @@ def _run_all_():
 
     while True:
         for display in display_list:
-            display.run_visualizer(64, 32)
+            display.run_visualizer(64, 32, True, 60)

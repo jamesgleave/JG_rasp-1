@@ -60,5 +60,3 @@ def led_matrix_help():
     print("led_slowdown_gpio=<0..2> Needed for faster Pis and/or slower panels (Default: 1) -> for pi3 2 may be needed")
     print("led_daemon If this is set, the program puts itself into the background (running as 'daemon'). "
           "You might want this if started from an init script at boot-time.")
-
-led_matrix_help()

@@ -1,11 +1,14 @@
 import led_matrix_interface as Jworld
 import random
+import time
 
 
-def run_visualizer(matrix_length, matrix_height):
+def run_visualizer(matrix_length, matrix_height, time_limited=False):
     audio = Jworld.JAudio.Waveform()
     Dmatrix = audio.Dmatrix
     pen = Jworld.Pen(canvas=Dmatrix)
+
+    initial_time = time.time()
 
     updates_over_threshold = 0
     while True:
@@ -39,6 +42,15 @@ def run_visualizer(matrix_length, matrix_height):
                           , fill=True, gradient="r_grad_x")
 
         Dmatrix.Clear()
+
+        if time_limited:
+            delta_time = int(time.time() - initial_time)
+            if delta_time > 60:
+                while Dmatrix.brightness > 5:
+                    Dmatrix.brightness -= 1
+                    time.sleep(.1)
+                break
+
 
 
 # Main function

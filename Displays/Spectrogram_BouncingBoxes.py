@@ -3,7 +3,7 @@ import random
 import led_matrix_util as util
 
 
-def run_spectrogram(matrix_length, matrix_height):
+def run_visualizer(matrix_length, matrix_height):
     audio = Jworld.JAudio.AudioStream()
     Dmatrix = audio.Dmatrix
     pen = Jworld.Pen(canvas=Dmatrix)
@@ -37,4 +37,4 @@ def run_spectrogram(matrix_length, matrix_height):
 
 # Main function
 if __name__ == "__main__":
-    run_spectrogram(Jworld.cols, Jworld.rows)
+    run_visualizer(Jworld.cols, Jworld.rows)

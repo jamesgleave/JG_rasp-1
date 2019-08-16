@@ -1,7 +1,9 @@
+import time
+import sys
+
+sys.path.insert(1, '/Users/martingleave/Documents/GitHub/JG_rasp-1')
 import led_matrix_interface as Jworld
 from led_matrix_interface import graphics
-import subprocess
-import time
 
 
 def display_message(message):

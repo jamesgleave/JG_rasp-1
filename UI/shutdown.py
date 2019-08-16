@@ -1,8 +1,10 @@
+import subprocess
+import time
+import sys
+
+sys.path.insert(1, '/Users/martingleave/Documents/GitHub/JG_rasp-1')
 import led_matrix_interface as Jworld
 from led_matrix_interface import graphics
-import subprocess
-
-import time
 
 # initializing the pen object for writing text
 pen = Jworld.Pen(canvas=Jworld.RGBMatrix(options=Jworld.options))
